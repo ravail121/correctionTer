@@ -1,0 +1,115 @@
+<?php
+require_once 'config.php';
+require_once 'functions.php';
+require_once 'error_tracker.php';
+
+$date = getTradingDate();
+
+// $companies = [
+//     'AAPL' => 'Apple Inc.',
+//     'A' => 'Agilent Technologies',
+//     'AAL' => 'American Airlines Group',
+    
+//     'ABBV' => 'AbbVie',
+//     'ABNB' => 'Airbnb',
+//     'ABT' => 'Abbott',
+//     'ACGL' => 'Arch Capital Group',
+//     'ACN' => 'Accenture',
+//     'ADBE' => 'Adobe Inc.',
+//     'ADI' => 'Analog Devices',
+//     'ADM' => 'Archer-Daniels-Midland',
+//     'ADP' => 'Automatic Data Processing',
+//     'ADSK' => 'Autodesk',
+//     'AEE' => 'Ameren',
+//     'AEP' => 'American Electric Power',
+//     'AES' => 'AES Corporation',
+//     'AFL' => 'Aflac',
+//     'AIG' => 'American International Group',
+//     'AIZ' => 'Assurant',
+//     'AJG' => 'Arthur J. Gallagher & Co.',
+//     'AKAM' => 'Akamai',
+//     'ALB' => 'Albemarle Corporation',
+//     'ALGN' => 'Align Technology',
+//     'ALL' => 'Allstate',
+//     'ALLE' => 'Allegion',
+//     'AMAT' => 'Applied Materials',
+//     'AMCR' => 'Amcor',
+//     'AMD' => 'Advanced Micro Devices',
+//     'AME' => 'Ametek',
+//     'AMGN' => 'Amgen',
+//     'AMP' => 'Ameriprise Financial',
+//     'AMT' => 'American Tower',
+//     'AMZN' => 'Amazon',
+//     'ANET' => 'Arista Networks',
+//     'AON' => 'Aon',
+//     'AOS' => 'A. O. Smith',
+//     'APA' => 'APA Corporation',
+//     'APD' => 'Air Products and Chemicals',
+//     'APH' => 'Amphenol',
+//     'APTV' => 'Aptiv',
+//     'ARE' => 'Alexandria Real Estate Equities',
+//     'ATO' => 'Atmos Energy',
+//     'AVB' => 'AvalonBay Communities',
+//     'AVGO' => 'Broadcom Inc.',
+//     'AVY' => 'Avery Dennison',
+//     'AWK' => 'American Water Works',
+//     'AXON' => 'Axon Enterprise',
+//     'AXP' => 'American Express',
+//     'AZO' => 'AutoZone',
+//     'BA' => 'Boeing',
+//     'BAC' => 'Bank of America',
+//     'BALL' => 'Ball Corporation',
+//     'BAX' => 'Baxter International',
+//     'BBWI' => 'Bath & Body Works, Inc.',
+//     'BBY' => 'Best Buy',
+//     'BDX' => 'Becton Dickinson',
+//     'BEN' => 'Franklin Templeton',
+//     'BF.B' => 'Brown–Forman',
+//     'BG' => 'Bunge Global SA',
+//     'BIIB' => 'Biogen',
+//     'BIO' => 'Bio-Rad',
+//     'BK' => 'Bank of New York Mellon',
+//     'BKNG' => 'Booking Holdings',
+//     'BKR' => 'Baker Hughes',
+//     'BLDR' => 'Builders FirstSource',
+//     'BLK' => 'BlackRock',
+//     'BMY' => 'Bristol Myers Squibb',
+//     'BR' => 'Broadridge Financial Solutions',
+//     'BRK.B' => 'Berkshire Hathaway',
+//     'BRO' => 'Brown & Brown',
+//     'BSX' => 'Boston Scientific',
+//     'BWA' => 'BorgWarner',
+//     'BX' => 'Blackstone',
+//     'BXP' => 'Boston Properties',
+//     'C' => 'Citigroup',
+//     'CAG' => 'Conagra Brands',
+//     'CAH' => 'Cardinal Health',
+//     'CARR' => 'Carrier Global',
+//     'CAT' => 'Caterpillar Inc.',
+//     'CB' => 'Chubb Limited',
+//     'CBOE' => 'Cboe Global Markets',
+//     'CBRE' => 'CBRE Group',
+//     'CCI' => 'Crown Castle',
+//     'CCL' => 'Carnival',
+//     'CDNS' => 'Cadence Design Systems',
+//     'CDW' => 'CDW',
+//     'CE' => 'Celanese',
+//     'CEG' => 'Constellation Energy',
+//     'CF' => 'CF Industries',
+//     'CFG' => 'Citizens Financial Group',
+//     'CHD' => 'Church & Dwight',
+//     'CHRW' => 'CH Robinson',
+//     'CHTR' => 'Charter Communications',
+//     'CI' => 'Cigna'
+// ];
+
+$con = getDbConnection();
+$errorTracker = new ErrorTracker($con, __FILE__);
+$companies = getCompaniesChunk($con, 0);
+processCompanies($companies, $con, $errorTracker, $date);
+
+// Errors are now saved to database only - no email sending from stock scripts
+// Email will be sent by nightly script (send_stock_error_email.php)
+
+$con->close();
+?>

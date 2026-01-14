@@ -1,0 +1,35 @@
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /correction1/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /correction1/index.php [L]
+</IfModule>
+<IfModule mod_php7.c>
+    php_value max_execution_time 1800
+    php_value max_input_time 1800
+</IfModule>
+
+<IfModule mod_php5.c>
+    php_value max_execution_time 1800
+    php_value max_input_time 1800
+</IfModule>
+
+# Increase Apache timeout
+<IfModule mod_reqtimeout.c>
+    RequestReadTimeout header=30-60,MinRate=500 body=30,MinRate=500
+</IfModule>
+
+# END WordPress
+
+# Custom redirect for blogs/home to the main domain
+<IfModule mod_rewrite.c>
+RewriteCond %{REQUEST_URI} ^/blogs/home/?$
+RewriteRule ^(.*)$ https://correctionterritory.com/ [R=301,L]
+</IfModule>

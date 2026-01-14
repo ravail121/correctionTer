@@ -1,0 +1,116 @@
+<?php
+require_once 'config.php';
+require_once 'functions.php';
+require_once 'error_tracker.php';
+
+$date = getTradingDate();
+
+// $companies = [
+//     'MA' => 'Mastercard',
+//     'MAA' => 'Mid-America Apartment Communities',
+//     'MAR' => 'Marriott International',
+//     'MAS' => 'Masco',
+//     'MCD' => 'McDonald\'s',
+//     'MCHP' => 'Microchip Technology',
+//     'MCK' => 'McKesson Corporation',
+//     'MCO' => 'Moody\'s Corporation',
+//     'MDLZ' => 'Mondelez International',
+//     'MDT' => 'Medtronic',
+//     'MET' => 'MetLife',
+//     'META' => 'Meta Platforms',
+//     'MGM' => 'MGM Resorts',
+//     'MHK' => 'Mohawk Industries',
+//     'MKC' => 'McCormick & Company',
+//     'MKTX' => 'MarketAxess',
+//     'MLM' => 'Martin Marietta Materials',
+//     'MMC' => 'Marsh McLennan',
+//     'MMM' => '3M',
+//     'MNST' => 'Monster Beverage',
+//     'MO' => 'Altria',
+//     'MOH' => 'Molina Healthcare',
+//     'MOS' => 'Mosaic Company (The)',
+//     'MPC' => 'Marathon Petroleum',
+//     'MPWR' => 'Monolithic Power Systems',
+//     'MRK' => 'Merck & Co.',
+//     'MRNA' => 'Moderna',
+//     // 'MRO' => 'Marathon Oil',
+//     'MS' => 'Morgan Stanley',
+//     'MSCI' => 'MSCI',
+//     'MSFT' => 'Microsoft',
+//     'MSI' => 'Motorola Solutions',
+//     'MTB' => 'M&T Bank',
+//     'MTCH' => 'Match Group',
+//     'MTD' => 'Mettler Toledo',
+//     'MU' => 'Micron Technology',
+//     'NCLH' => 'Norwegian Cruise Line Holdings',
+//     'NDAQ' => 'Nasdaq, Inc.',
+//     'NDSN' => 'Nordson Corporation',
+//     'NEE' => 'NextEra Energy',
+//     'NEM' => 'Newmont',
+//     'NFLX' => 'Netflix',
+//     'NI' => 'NiSource',
+//     'NKE' => 'Nike, Inc.',
+//     'NOC' => 'Northrop Grumman',
+//     'NOW' => 'ServiceNow',
+//     'NRG' => 'NRG Energy',
+//     'NSC' => 'Norfolk Southern Railway',
+//     'NTAP' => 'NetApp',
+//     'NTRS' => 'Northern Trust',
+//     'NUE' => 'Nucor',
+//     'NVDA' => 'Nvidia',
+//     'NVR' => 'NVR, Inc.',
+//     'NWS' => 'News Corp (Class B)',
+//     'NWSA' => 'News Corp (Class A)',
+//     'NXPI' => 'NXP Semiconductors',
+//     'O' => 'Realty Income',
+//     'ODFL' => 'Old Dominion',
+//     'OKE' => 'ONEOK',
+//     'OMC' => 'Omnicom Group',
+//     'ON' => 'ON Semiconductor',
+//     'ORCL' => 'Oracle Corporation',
+//     'ORLY' => 'O\'Reilly Auto Parts',
+//     'OTIS' => 'Otis Worldwide',
+//     'OXY' => 'Occidental Petroleum',
+//     'PANW' => 'Palo Alto Networks',
+//     // 'PARA' => 'Paramount Global',
+//     'PAYC' => 'Paycom',
+//     'PAYX' => 'Paychex',
+//     'PCAR' => 'Paccar',
+//     'PCG' => 'PG&E Corporation',
+//     'PEG' => 'Public Service Enterprise Group',
+//     'PEP' => 'PepsiCo',
+//     'PFE' => 'Pfizer',
+//     'PFG' => 'Principal Financial Group',
+//     'PG' => 'Procter & Gamble',
+//     'PGR' => 'Progressive Corporation',
+//     'PH' => 'Parker Hannifin',
+//     'PHM' => 'PulteGroup',
+//     'PKG' => 'Packaging Corporation of America',
+//     'PLD' => 'Prologis',
+//     'PM' => 'Philip Morris International',
+//     'PNC' => 'PNC Financial Services',
+//     'PNR' => 'Pentair',
+//     'PNW' => 'Pinnacle West',
+//     'PODD' => 'Insulet Corporation',
+//     'POOL' => 'Pool Corporation',
+//     'PPG' => 'PPG Industries',
+//     'PPL' => 'PPL Corporation',
+//     'PRU' => 'Prudential Financial',
+//     'PSA' => 'Public Storage',
+//     'PSX' => 'Phillips 66',
+//     'PTC' => 'PTC',
+//     'PWR' => 'Quanta Services',
+//     'PYPL' => 'PayPal'
+// ];
+
+$con = getDbConnection();
+$errorTracker = new ErrorTracker($con, __FILE__);
+$companies = getCompaniesChunk($con, 3);
+
+processCompanies($companies, $con, $errorTracker, $date);
+
+// Errors are now saved to database only - no email sending from stock scripts
+// Email will be sent by nightly script (send_stock_error_email.php)
+
+$con->close();
+?>

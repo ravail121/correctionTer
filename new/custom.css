@@ -1,0 +1,515 @@
+     .customheading{
+            text-align: center;
+                font-size: 28px;
+    font-weight: 700;
+        }
+    .form-check-input[type=radio] {
+            border-radius: 50%;
+            margin-top: 4px !important;
+        }
+    .bg-warning {
+        background-color: #FFF9C4 !important;
+    }
+    .bg-success {
+        background-color: #ACE5DC !important;
+    }
+    .bg-danger{
+        background-color: #F7D1DF !important;
+    }
+    .mynumber {
+    font-size: 13px !important;
+    height: 15px !important;
+    width: 30px !important;
+    border: 1px solid white !important;
+    box-shadow: 1px 1px 1px 1px white !important;
+    border-bottom: 1px solid black !important;
+    margin-top: -1px !important;
+    padding: 5px !important;
+}
+    .bg-danger, .bg-success, .bg-warning {
+        color: #747474 !important;
+        font-weight: 500;
+    }
+    thead {
+        font-size: 13px;
+        vertical-align: middle !important;
+        height:60px;
+    }
+    table {
+        text-align: center;
+    }
+    .cname1 {
+        text-align: left !important;
+        vertical-align: middle !important;
+        padding-left: 10px !important;
+    }
+    .cname {
+        text-align: left !important;
+    position: relative; /* Establish a positioning context for absolute positioning */
+    padding-right: 20px; /* Add padding to the right for the icon */
+}
+
+.heart-icon {
+    position: absolute; /* Position the heart icon absolutely */
+    right: 3px; /* Align it to the right of the cell */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust to perfect vertical centering */
+    color: red; /* Optional: Set the color of the heart icon */
+}
+
+    
+    table.dataTable tbody tr {
+        background-color: #ffffc500;
+    }
+    table.dataTable thead th, table.dataTable thead td {
+            padding: 5px -5px;
+            border-bottom: 1px solid #d1d1d1;
+        }
+    table.dataTable thead th{
+    padding: 5px 10px !important;
+    border-bottom: 1px solid #111;
+     }    
+    
+      
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #ffffc500;
+    }  
+    .mycustomcol{
+        margin-top:-40px;
+    } 
+    .showmobile { 
+                display: none;
+            } 
+        
+    @media (max-width: 768px) {
+        
+
+    .mycustomcol{
+        margin-top:-0px;
+    }  
+        .hidemobile {
+            display: none;
+        }
+        .showmobile { 
+                display: block;
+            }
+        .filterList{
+            padding:0px 10px;
+        }
+        .text1{
+            padding:0px 10px !important;
+        }
+        .heart-icon.favorited {
+        font-size: 14px !important;
+    }
+    .heart-icon {
+        cursor: pointer;
+        margin-right: 0px !important;
+        color: #000;
+        font-size: 14px !important;
+    }
+    table.dataTable thead th {
+    padding: 2px 10px !important;
+    border-bottom: 1px solid #d1d1d1;
+}
+        .customheading{
+            padding-left:10px;
+            font-size:23px;
+            text-align: center;
+        }
+            .mynumber {
+        font-size: 13px !important;
+        height: 13px !important;
+        width: 30px !important;
+        border: 1px solid white !important;
+        box-shadow: 1px 1px 1px 1px white !important;
+        border-bottom: 1px solid black !important;
+        margin-top: -3px !important;
+        padding: 5px !important;
+    }
+        thead, table {
+            font-size: 10px;
+        }
+        
+        table.dataTable thead th {
+            padding-right: 15px; /* Add padding to the right of header cells */
+        }
+        
+        table.dataTable thead th.sorting:after, 
+        table.dataTable thead th.sorting_asc:after, 
+        table.dataTable thead th.sorting_desc:after {
+            margin-left: 5px; /* Adjust the margin between text and arrow */
+        }
+        
+    }
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+--bs-table-accent-bg: rgb(0 0 0 / 0%)!important;
+border-bottom: 1px solid #e7e7e7;
+color: #636464;
+text-align: center;
+font-size:14px !important;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+border-bottom: 1px solid #e7e7e7;
+color:#636464;
+text-align: center;
+font-size:14px !important;
+}
+a {
+    color: #4289f1;
+    text-decoration: none;
+}
+
+.text{
+    color: #f1f1f1;
+    text-decoration:none;
+}
+.text:hover{
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration:none;
+}
+.footer-ul{
+    list-style: none;
+}
+.footer-ul>li{
+    padding-top: 12px;
+    border-bottom: 1px solid #ffffff3b;
+    padding-bottom: 3px;
+}
+  
+
+.bootstrap-select .dropdown-menu li a span.text {
+    color: #0e0e0e !important;
+}
+.mt-6 {
+    margin-top: 4rem !important;
+    margin-bottom:2rem !important;
+}
+.hidedesktop{
+    display: none;
+}
+.filter-option-inner-inner {
+    color: black;
+    font-weight:500;
+}
+.dropup .dropdown-toggle::after {
+    font-size: 24px !important;
+    color: black;
+}
+.dropdown-toggle::after {
+     font-size: 24px !important;
+    color: black;
+}
+    /* Hide the radio button circle */
+.btn-check {
+    display: none;
+}
+
+/* Default button styles */
+.custom-btn {
+    background-color: #D9D9D9; /* Default background */
+    color: black; /* Default text color */
+    border: none; /* Remove border */
+    padding: 5px 10px; /* Reduced padding */
+    font-size: 14px; /* Smaller font size */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s; /* Smooth transition */
+    margin: 5px 0px; /* Add some margin to space the buttons */
+
+}
+
+/* Selected button styles */
+.btn-check:checked + .custom-btn {
+    background-color: black; /* Selected background */
+    color: white; /* Selected text color */
+}
+.checked {
+    background-color: black; /* Selected background */
+    color: white; /* Selected text color */
+}
+
+/* Hover effect for buttons */
+.custom-btn:hover {
+    background-color: #ced4da; /* Slightly darker on hover */
+}
+.checked:hover {
+    background-color: black !important; /* Selected background */
+    color: white !important; /* Selected text color */
+}
+/* Ensure all buttons are displayed in one line */
+.d-flex {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping if there is not enough space */
+    gap: 10px; /* Adds consistent spacing between buttons */
+    justify-content: center; /* Center the buttons */
+}
+
+.form-check-inline {
+    display: flex;
+        margin-right: 0px !important;
+}
+.form-check {
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 0px !important;
+    margin-bottom: .125rem;
+}
+    .table-bordered>:not(caption)>*>* {
+    border-width: 0px 0px;
+}
+        .checkbox label {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .checkbox input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #000;
+            margin-left: 5px;
+            width: 50px; /* Adjust width as necessary */
+            padding: 2px;
+        }
+
+        .checkbox input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid #000; /* Thicker border when focused */
+        }
+
+        .checkbox input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .mycontain{
+            padding:70px 5px;
+        }
+                /* Basic styles for the input field and suggestion box */
+        .suggestion-box {
+            border: 0px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 1000;
+            background-color: white;
+            width: 80%;
+        }
+
+        .suggestion-box div {
+            padding: 6px;
+            cursor: pointer;
+            border: 1px solid #cbcbcb42;
+        }
+
+        .suggestion-box div:hover {
+            background-color: #f0f0f0;
+        }
+         .modal-dialog {
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 1rem); /* Center modal vertically */
+        }
+        /* Desktop styles */
+        .filterList .col-12 {
+            display: flex !important;
+            justify-content: center !important;
+            flex-wrap: wrap !important; /* Allow wrapping on larger screens */
+        }
+        .text1{
+            font-size: 13px;
+            margin-bottom: -2px;
+            margin-left: 9px;
+        }
+        /* Mobile styles (for devices smaller than 768px) */
+        @media (max-width: 768px) {
+            .filterList .col1-12 {
+                display: flex !important;
+                flex-wrap: nowrap !important; /* Prevent wrapping to multiple lines */
+                overflow-x: auto !important; /* Allow horizontal scrolling */
+                -webkit-overflow-scrolling: touch !important; /* Smooth scrolling for iOS */
+               
+                padding-left: 263px;
+                padding-right: 20px;
+            }
+
+            .form-check-inline {
+                flex: 0 0 auto !important; /* Ensure each item stays its size */
+                margin-right: 15px; /* Optional: spacing between items */
+            }
+
+            /* Optional scrollbar customization */
+            .col-12::-webkit-scrollbar {
+                height: 6px !important; /* Custom scrollbar height */
+            }
+
+            .col-12::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.3); /* Style the scrollbar thumb */
+                border-radius: 3px;
+            }
+
+            .col-12::-webkit-scrollbar-track {
+                background-color: rgba(0, 0, 0, 0.1); /* Style the scrollbar track */
+            }
+
+            
+
+            /* Prevent elements from being cut off */
+            .filterList {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .modal-dialog {
+            min-height: calc(67% - 1rem); /* Center modal vertically */
+            }
+            .table-striped>tbody>tr:nth-of-type(odd)>* {
+                --bs-table-accent-bg: rgb(0 0 0 / 0%)!important;
+                border-bottom: 1px solid #e7e7e7;
+                color: #636464;
+                text-align: center;
+                font-size:10px !important;
+                }
+                table.dataTable tbody th, table.dataTable tbody td {
+                border-bottom: 1px solid #e7e7e7;
+                color:#636464;
+                text-align: center;
+                font-size:10px !important;
+                }
+            .text1{
+                font-size: 12px;
+                margin-bottom: -2px;
+                margin-left: 0px;
+            }    
+            .modal {
+                    z-index: 1060 !important; /* Set a higher z-index for the modal */
+                }
+
+                .modal-backdrop {
+                    z-index: 1055 !important; /* Set a slightly lower z-index for the backdrop */
+                }
+
+
+        }
+
+        /* General styling for form-check and custom buttons */
+        .form-check-input {
+            margin-right: 8px;
+        }
+        .dropdown-toggle::after {
+        display: none !important;
+    }
+        
+ .footer-wrapper {
+    padding: 0px;
+    background-color: #333333;
+    color: #fff;
+}
+
+.footer-widgets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-widgets .widget {
+    flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
+    margin: 10px;
+}
+
+.widget-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.is-divider {
+    margin: 10px 0;
+}
+
+.footer .col-inner {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-primary {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    .footer-widgets {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-widgets .widget {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .widget-title {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-widgets .widget {
+        padding: 10px;
+    }
+
+    .widget-title {
+        font-size: 1em;
+    }
+
+    .is-divider {
+        margin: 5px 0;
+    }
+}
+
+.absolute-footer {
+    text-align: center;
+    padding: 7px 0;
+    background-color: #111;
+}
+
+.back-to-top {
+    display: none; /* Initially hidden */
+}
+
+@media (min-width: 768px) {
+    .back-to-top {
+        display: block;
+    }
+}
+ .cookie-consent {
+  display: none; /* Initially hidden */
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+  max-width:calc(100% - 40px);
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.cookie-consent p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cookie-consent a {
+  color: #4289f1;
+  text-decoration: underline;
+}
+
+
+@media (max-width: 580px) {
+thead {
+        font-size: 10px;
+        vertical-align: middle !important;
+        height:30px;
+    }
+}
