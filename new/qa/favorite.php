@@ -19,25 +19,13 @@ include "db.php";
                     // Query to fetch data for favorite companies
                     $favorites_query = mysqli_query($con, "SELECT * FROM companies WHERE symbl IN ($symbolsList)");
            } else {
-                // If no favorites selected and it's an AJAX request, return empty message
-                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-                    echo '<div class="table-responsive" id="tablesList"><p style="text-align:center;padding:20px;">No favorites selected. Please add some favorites first.</p></div>';
-                    exit;
-                } else {
-                    echo '<meta http-equiv="refresh" content="0; url=index.php">';
-                    exit;
-                }
+                // No favorites selected - set query to null so table shows with message
+                $favorites_query = null;
            }
         }
        else{
-        // If no POST data and it's an AJAX request, return empty message
-        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            echo '<div class="table-responsive" id="tablesList"><p style="text-align:center;padding:20px;">No favorites data received.</p></div>';
-            exit;
-        } else {
-            echo '<meta http-equiv="refresh" content="0; url=index.php">';
-            exit;
-        }
+        // If no POST data, set query to null so table shows with message
+        $favorites_query = null;
        } 
         
     }
@@ -174,6 +162,15 @@ function closeTradingView() {
                 color: #7a7a7a;
               }
         
+        /* Prevent All-Time from breaking into multiple lines */
+        th[data-column="allTimeHighPrice"] {
+            word-break: keep-all;
+            white-space: normal;
+        }
+        th[data-column="allTimeHighPrice"] br {
+            display: block;
+        }
+        
     </style>
 <div class="loadingicon" id="loadingicon">
     <img src="images/loading-animation.gif" style="max-width:50px;display:block;margin: auto;padding:50px 0px;">
@@ -185,7 +182,7 @@ function closeTradingView() {
             <th class="cname1" data-column="name" width="25%" style="vertical-align: middle;">Company</th>
             <th class="hidemobile" data-column="marketCap" style="vertical-align: middle;">Market<br/>Cap($B)</th>
             <th data-column="lastClosePrice" style="vertical-align: middle;">Current<br/>Price($)</th>
-            <th data-column="allTimeHighPrice" style="vertical-align: middle;">All Time<br/>High($)</th>
+            <th data-column="allTimeHighPrice" style="vertical-align: middle;"><span style="white-space: nowrap;">All-Time</span><br/>High($)</th>
             <th data-column="allTimeHighCount" class="hidemobile" style="vertical-align: middle;">Highs<br/>Count</th>
             <th  class="hidemobile" data-column="lastATH" style="vertical-align: middle;">Last High<br/>(Days)</th>
             <th  scope="col" id="toggleColumnHeader" style="padding:0px !important;vertical-align: middle;">
@@ -212,8 +209,10 @@ function closeTradingView() {
     <tbody id="favoritesTableBody">
         <?php
 
+        $hasRows = false;
         if (isset($favorites_query) && $favorites_query) {
             while ($fetch_categories = mysqli_fetch_array($favorites_query)) {
+            $hasRows = true;
             $correctionRange = $fetch_categories["correction_range"];
             $market_cap = $fetch_categories["market_cap"];
             $average_volume = $fetch_categories["average_volume"];
@@ -301,9 +300,13 @@ function closeTradingView() {
 
         <?php 
             } // end while loop
+            if (!$hasRows) {
+                // Query executed but returned no rows
+                echo '<tr><td colspan="9" style="text-align:center;padding:20px;">You haven\'t added any favorites yet. Click the heart icon next to a stock\'s name to add it to your favorites.</td></tr>';
+            }
         } else {
             // No favorites selected or query failed
-            echo '<tr><td colspan="9" style="text-align:center;padding:20px;">No favorites selected. Please add some favorites first.</td></tr>';
+            echo '<tr><td colspan="9" style="text-align:center;padding:20px;">You haven\'t added any favorites yet. Click the heart icon next to a stock\'s name to add it to your favorites.</td></tr>';
         }
         if (isset($con)) {
             $con->close();
