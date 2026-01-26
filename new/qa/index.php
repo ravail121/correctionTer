@@ -58,9 +58,18 @@ if(isset($_POST['setnotification'])){
     <meta property="og:image:height" content="128" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Theme Color for Android -->
+    <meta name="theme-color" content="#333333">
+    
     <!-- Favicon -->
+    <link rel="icon" href="images/icon.png" type="image/png">
     <link rel="apple-touch-icon" href="images/icon.jpg">
+    <link rel="apple-touch-icon" sizes="192x192" href="images/icon.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="images/icon.png">
     
     <!-- Canonical Link -->
     <link rel="canonical" href="https://correctionterritory.com/" class="yoast-seo-meta-tag" />
