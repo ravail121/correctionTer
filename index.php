@@ -86,7 +86,7 @@ if(isset($_POST['setnotification'])){
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ3D68Y1WY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YJ3D68Y1WY'); </script>
+    
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf9TEcqAAAAAHau8MDGhNq4BmRG2sjiaXhaX3P9"></script>
     <style>
@@ -472,9 +472,23 @@ function closeTradingView() {
                 document.body.appendChild(form);
                 form.submit();
             } else {
-                alert("No favorites selected. Please add some favorites first by clicking the heart icon next to companies.");
-                // Uncheck the radio button if no favorites
-                $('input[name="filterOptions"][value="favorite"]').prop('checked', false);
+                // Even if no favorites, still submit to show the table with message
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "favorite.php?filter=favorites";
+
+                // Create a hidden input field for favorites (empty array)
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "favoriteSymbols";
+                input.value = JSON.stringify([]); // Pass empty array
+
+                // Append the input to the form
+                form.appendChild(input);
+
+                // Append the form to the body and submit it
+                document.body.appendChild(form);
+                form.submit();
             }
         }
         
