@@ -87,6 +87,8 @@ if(isset($_POST['setnotification'])){
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ3D68Y1WY"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YJ3D68Y1WY'); </script>
+
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf9TEcqAAAAAHau8MDGhNq4BmRG2sjiaXhaX3P9"></script>
     <style>
