@@ -99,6 +99,15 @@ if(isset($_POST['setnotification'])){
         <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985"
      crossorigin="anonymous"></script>
+     
+     <!-- X (Twitter) Pixel -->
+     <script>
+     !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+     },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+     a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+     twq('config','r0zgi');
+     </script>
+     
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <script src="https://www.google.com/recaptcha/api.js?render=6Lf9TEcqAAAAAHau8MDGhNq4BmRG2sjiaXhaX3P9"></script>
 </head>
