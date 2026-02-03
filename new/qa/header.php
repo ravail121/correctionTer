@@ -304,7 +304,7 @@ if (isset($_GET['filter'])) {
 </script>
    <?php } } ?>
 
-<!-- X (Twitter) Pixel - Filter Click Tracking -->
+<!-- Google Analytics - Filter Click Tracking -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     // Track clicks on filter link buttons (Big 7, Crypto, Indexes, Popular, All)
@@ -313,11 +313,6 @@ document.addEventListener("DOMContentLoaded", function() {
         link.addEventListener('click', function() {
             // Get button name from the label text
             var buttonName = this.querySelector('label') ? this.querySelector('label').textContent.trim() : 'Unknown';
-            
-            // Twitter Pixel tracking
-            if (typeof twq !== 'undefined') {
-                twq('event', 'filter_click');
-            }
             
             // Google Analytics gtag tracking
             if (typeof gtag !== 'undefined') {
@@ -334,11 +329,6 @@ document.addEventListener("DOMContentLoaded", function() {
         favoritesRadio.addEventListener('change', function() {
             if (this.checked) {
                 var buttonName = 'Favorites';
-                
-                // Twitter Pixel tracking
-                if (typeof twq !== 'undefined') {
-                    twq('event', 'filter_click');
-                }
                 
                 // Google Analytics gtag tracking
                 if (typeof gtag !== 'undefined') {
