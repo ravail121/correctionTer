@@ -311,9 +311,19 @@ document.addEventListener("DOMContentLoaded", function() {
     var filterLinks = document.querySelectorAll('#scrollableDiv a');
     filterLinks.forEach(function(link) {
         link.addEventListener('click', function() {
-            // Check if twq is available before calling
+            // Get button name from the label text
+            var buttonName = this.querySelector('label') ? this.querySelector('label').textContent.trim() : 'Unknown';
+            
+            // Twitter Pixel tracking
             if (typeof twq !== 'undefined') {
                 twq('event', 'filter_click');
+            }
+            
+            // Google Analytics gtag tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'filter_event_google', {
+                    'button_name': buttonName
+                });
             }
         });
     });
@@ -323,9 +333,18 @@ document.addEventListener("DOMContentLoaded", function() {
     if (favoritesRadio) {
         favoritesRadio.addEventListener('change', function() {
             if (this.checked) {
-                // Check if twq is available before calling
+                var buttonName = 'Favorites';
+                
+                // Twitter Pixel tracking
                 if (typeof twq !== 'undefined') {
                     twq('event', 'filter_click');
+                }
+                
+                // Google Analytics gtag tracking
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'filter_event_google', {
+                        'button_name': buttonName
+                    });
                 }
             }
         });
