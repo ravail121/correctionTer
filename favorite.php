@@ -19,25 +19,13 @@ include "db.php";
                     // Query to fetch data for favorite companies
                     $favorites_query = mysqli_query($con, "SELECT * FROM companies WHERE symbl IN ($symbolsList)");
            } else {
-                // If no favorites selected and it's an AJAX request, return empty message
-                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-                    echo '<div class="table-responsive" id="tablesList"><p style="text-align:center;padding:20px;">No favorites selected. Please add some favorites first.</p></div>';
-                    exit;
-                } else {
-                    echo '<meta http-equiv="refresh" content="0; url=index.php">';
-                    exit;
-                }
+                // No favorites selected - set query to null so table shows with message
+                $favorites_query = null;
            }
         }
        else{
-        // If no POST data and it's an AJAX request, return empty message
-        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            echo '<div class="table-responsive" id="tablesList"><p style="text-align:center;padding:20px;">No favorites data received.</p></div>';
-            exit;
-        } else {
-            echo '<meta http-equiv="refresh" content="0; url=index.php">';
-            exit;
-        }
+        // If no POST data, set query to null so table shows with message
+        $favorites_query = null;
        } 
         
     }
@@ -111,10 +99,24 @@ if(isset($_POST['setnotification'])){
         <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985"
      crossorigin="anonymous"></script>
+     
+     <!-- X (Twitter) Pixel -->
+     <script>
+     !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+     },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+     a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+     twq('config','r0zgi');
+     </script>
+     
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <script src="https://www.google.com/recaptcha/api.js?render=6Lf9TEcqAAAAAHau8MDGhNq4BmRG2sjiaXhaX3P9"></script>
 </head>
-
+<div class="overlay" id="tvOverlay" onclick="closeTradingView()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:9999;">
+  <div style="position:absolute; left:0; right:0; bottom:0; height:75%; background:#fff; border-radius:16px 16px 0 0;"
+       onclick="event.stopPropagation()">
+    <iframe id="tvFrame" style="width:100%; height:100%; border:0;"></iframe>
+  </div>
+</div>
 <body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -128,6 +130,24 @@ if(isset($_POST['setnotification'])){
 <link href="custom.css" rel="stylesheet">
 <?php include "header.php" ?>
  <div class="table-responsive" id="tablesList">
+    <script type="text/javascript">
+function openTradingView(symbol) {
+    const url =
+        "https://www.tradingview.com/widgetembed/?" +
+        "symbol=" + encodeURIComponent(symbol) +
+        "&interval=W" +
+        "&hide_side_toolbar=true" +
+        "&theme=light";
+
+    document.getElementById("tvFrame").src = url;
+    document.getElementById("tvOverlay").style.display = "block";
+}
+
+function closeTradingView() {
+    document.getElementById("tvOverlay").style.display = "none";
+    document.getElementById("tvFrame").src = "";
+}
+</script>
     <style>
         #loadingicon {
             /* Initial styles for loading icon */
@@ -151,6 +171,15 @@ if(isset($_POST['setnotification'])){
                 color: #7a7a7a;
               }
         
+        /* Prevent All-Time from breaking into multiple lines */
+        th[data-column="allTimeHighPrice"] {
+            word-break: keep-all;
+            white-space: normal;
+        }
+        th[data-column="allTimeHighPrice"] br {
+            display: block;
+        }
+        
     </style>
 <div class="loadingicon" id="loadingicon">
     <img src="images/loading-animation.gif" style="max-width:50px;display:block;margin: auto;padding:50px 0px;">
@@ -162,7 +191,7 @@ if(isset($_POST['setnotification'])){
             <th class="cname1" data-column="name" width="25%" style="vertical-align: middle;">Company</th>
             <th class="hidemobile" data-column="marketCap" style="vertical-align: middle;">Market<br/>Cap($B)</th>
             <th data-column="lastClosePrice" style="vertical-align: middle;">Current<br/>Price($)</th>
-            <th data-column="allTimeHighPrice" style="vertical-align: middle;">All Time<br/>High($)</th>
+            <th data-column="allTimeHighPrice" style="vertical-align: middle;"><span style="white-space: nowrap;">All-Time</span><br/>High($)</th>
             <th data-column="allTimeHighCount" class="hidemobile" style="vertical-align: middle;">Highs<br/>Count</th>
             <th  class="hidemobile" data-column="lastATH" style="vertical-align: middle;">Last High<br/>(Days)</th>
             <th  scope="col" id="toggleColumnHeader" style="padding:0px !important;vertical-align: middle;">
@@ -189,8 +218,10 @@ if(isset($_POST['setnotification'])){
     <tbody id="favoritesTableBody">
         <?php
 
+        $hasRows = false;
         if (isset($favorites_query) && $favorites_query) {
             while ($fetch_categories = mysqli_fetch_array($favorites_query)) {
+            $hasRows = true;
             $correctionRange = $fetch_categories["correction_range"];
             $market_cap = $fetch_categories["market_cap"];
             $average_volume = $fetch_categories["average_volume"];
@@ -216,7 +247,8 @@ if(isset($_POST['setnotification'])){
         ?>
             <tr>
                 <td class="cname">
-                    <a href="https://www.google.com/finance/quote/<?php echo $fetch_categories["symbl"]; ?>:<?php echo $exchange_name; ?>?hl=en&window=1Y"  target="_blank">
+                    <a href="javascript:void(0)"
+                       onclick="openTradingView('<?php echo $exchange_name; ?>:<?php echo $fetch_categories["symbl"]; ?>')">
                         <?php echo htmlspecialchars($fetch_categories["name"]); ?>
                     </a>
                     <span class="heart-icon" data-symbol="<?php echo htmlspecialchars($fetch_categories["symbl"]); ?>"><i class="fa fa-heart"></i></span>
@@ -277,9 +309,13 @@ if(isset($_POST['setnotification'])){
 
         <?php 
             } // end while loop
+            if (!$hasRows) {
+                // Query executed but returned no rows
+                echo '<tr><td colspan="9" style="text-align:center;padding:20px;">You haven\'t added any favorites yet. Click the heart icon next to a stock\'s name to add it to your favorites.</td></tr>';
+            }
         } else {
             // No favorites selected or query failed
-            echo '<tr><td colspan="9" style="text-align:center;padding:20px;">No favorites selected. Please add some favorites first.</td></tr>';
+            echo '<tr><td colspan="9" style="text-align:center;padding:20px;">You haven\'t added any favorites yet. Click the heart icon next to a stock\'s name to add it to your favorites.</td></tr>';
         }
         if (isset($con)) {
             $con->close();
