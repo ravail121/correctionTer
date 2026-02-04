@@ -304,28 +304,46 @@ if (isset($_GET['filter'])) {
 </script>
    <?php } } ?>
 
-<!-- X (Twitter) Pixel - Filter Click Tracking -->
+<!-- Tracking - Filter Click Tracking (X Pixel + Google Analytics) -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     // Track clicks on filter link buttons (Big 7, Crypto, Indexes, Popular, All)
     var filterLinks = document.querySelectorAll('#scrollableDiv a');
     filterLinks.forEach(function(link) {
         link.addEventListener('click', function() {
-            // Check if twq is available before calling
+            var buttonName = this.querySelector('label') ? this.querySelector('label').textContent.trim() : 'Unknown';
+
+            // X (Twitter) Pixel tracking (existing)
             if (typeof twq !== 'undefined') {
                 twq('event', 'tw-r0zgi-r318c');
             }
+
+            // Google Analytics gtag tracking (new)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'filter_event_google', {
+                    'button_name': buttonName
+                });
+            }
         });
     });
-    
+
     // Track clicks on Favorites radio button
     var favoritesRadio = document.getElementById('filterOptionsFav');
     if (favoritesRadio) {
         favoritesRadio.addEventListener('change', function() {
             if (this.checked) {
-                // Check if twq is available before calling
+                var buttonName = 'Favorites';
+
+                // X (Twitter) Pixel tracking (existing)
                 if (typeof twq !== 'undefined') {
                     twq('event', 'tw-r0zgi-r318c');
+                }
+
+                // Google Analytics gtag tracking (new)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'filter_event_google', {
+                        'button_name': buttonName
+                    });
                 }
             }
         });
