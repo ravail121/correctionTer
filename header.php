@@ -414,13 +414,22 @@ $categories_query = mysqli_query($con, "SELECT * FROM companies");
             $converted_average_volume = convertVolume($average_volume);
             $exchange_value = $fetch_popup["exchange_name"];
 
-            if ($fetch_popup["eps_value"]!='') {
-               $pe_ratio = floatval($fetch_popup["last_close"])/floatval($fetch_popup["eps_value"]);
+            $eps = floatval($fetch_popup["eps_value"]);
+            if ($eps == 0) {
+    error_log("DIVISION BY ZERO WARNING:
+        Company ID: " . $fetch_popup["id"] . "
+        Name: " . $fetch_popup["name"] . "
+        EPS: " . $fetch_popup["eps_value"] . "
+        Last Close: " . $fetch_popup["last_close"]
+    );
+}
+            if ($eps != 0.0) {
+                $pe_ratio = floatval($fetch_popup["last_close"]) / $eps;
                 $pe_ratio = number_format($pe_ratio, 2);
+            } else {
+                $pe_ratio = '-';
             }
-            else{
-                $pe_ratio='-'; 
-            }
+
 
             if ($exchange_value == 'XNAS') {
                 $exchange_name = "NASDAQ";

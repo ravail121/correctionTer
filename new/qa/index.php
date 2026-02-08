@@ -147,13 +147,15 @@ function closeTradingView() {
             $converted_average_volume = convertVolume($average_volume);
             $exchange_value = $fetch_categories["exchange_name"];
 
-            if ($fetch_categories["eps_value"]!='') {
-               $pe_ratio = floatval($fetch_categories["last_close"])/floatval($fetch_categories["eps_value"]);
-                $pe_ratio = number_format($pe_ratio, 2);
+            $eps_raw = $fetch_categories["eps_value"];
 
-            }
-            else{
-                $pe_ratio='-'; 
+            if (is_numeric($eps_raw) && floatval($eps_raw) > 0) {
+                $pe_ratio = number_format(
+                    floatval($fetch_categories["last_close"]) / floatval($eps_raw),
+                    2
+                );
+            } else {
+                $pe_ratio = '-';
             }
             
 
