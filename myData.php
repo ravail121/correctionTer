@@ -879,11 +879,12 @@ a {
     
     $categories_query = mysqli_query($con, "SELECT * FROM `indexes`");
     while ($fetch_categories = mysqli_fetch_array($categories_query)) {
-     
+     try {
         $lastClosePrice=$fetch_categories["last_close"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
 
 ?>
         <tr>
@@ -896,7 +897,12 @@ a {
             <td><?php echo $fetch_categories["all_time_high"]; ?></td>
             <td class="<?php if ($correctionRange >= -5) { echo 'bg-danger'; } else if ($correctionRange >= -15) { echo 'bg-warning'; } else { echo 'bg-success'; } ?>"><?php echo $correctionRange; ?></td>
         </tr>
-<?php } $con->close(); ?>
+<?php
+    } catch (Throwable $e) {
+        error_log("myData indexes row skip: " . $e->getMessage());
+        continue;
+    }
+} $con->close(); ?>
     </tbody>
 </table>
 
@@ -1254,8 +1260,9 @@ a {
      
         $lastClosePrice=$fetch_categories["last_close"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
         $exchange_name=$fetch_categories["exchange_name"];
         $exchange_name = str_replace(' ', '', $exchange_name);
         if ($exchange_name=='XNAS') {
@@ -1629,8 +1636,9 @@ a {
      
         $lastClosePrice=$fetch_categories["last_close_price"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
 
 ?>
         <tr>

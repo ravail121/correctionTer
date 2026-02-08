@@ -45,8 +45,10 @@ foreach ($companies as $symbol => $name) {
         $allTimeHighData = json_decode($responseAllTimeHigh, true);
         $allTimeHighPrice =134.72;
 
-        // Calculate correction range
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
+        // Calculate correction range (guard against division by zero)
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100
+            : 0;
         $correctionRangeFormatted = formatCorrectionRange($correctionRange);
 
         // Fetch market cap
@@ -65,7 +67,10 @@ foreach ($companies as $symbol => $name) {
             throw new Exception("Error fetching volume data for $symbol");
         }
         $volumeData = json_decode($responseVolume, true);
-        $averageVolume = array_sum(array_column($volumeData['results'], 'v')) / count($volumeData['results']);
+        $volResults = $volumeData['results'] ?? [];
+        $averageVolume = (count($volResults) > 0)
+            ? array_sum(array_column($volResults, 'v')) / count($volResults)
+            : 0;
 
         // Attempt to update existing record; if no rows affected, then insert new record
         $dateTime = date('Y-m-d H:i:s');

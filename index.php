@@ -140,6 +140,7 @@ function closeTradingView() {
     }
 
         while ($fetch_categories = mysqli_fetch_array($categories_query)) {
+            try {
             $correctionRange = $fetch_categories["correction_range"];
             $market_cap = $fetch_categories["market_cap"];
             $average_volume = $fetch_categories["average_volume"];
@@ -148,7 +149,6 @@ function closeTradingView() {
             $exchange_value = $fetch_categories["exchange_name"];
 
             $eps_raw = $fetch_categories["eps_value"];
-
             if (is_numeric($eps_raw) && floatval($eps_raw) > 0) {
                 $pe_ratio = number_format(
                     floatval($fetch_categories["last_close"]) / floatval($eps_raw),
@@ -157,14 +157,15 @@ function closeTradingView() {
             } else {
                 $pe_ratio = '-';
             }
-            
 
             if ($exchange_value == 'XNAS') {
                 $exchange_name = "NASDAQ";
             } elseif ($exchange_value == 'XNYS') {
                 $exchange_name = "NYSE";
-            }elseif ($exchange_value == NULL) {
+            } elseif ($exchange_value == NULL) {
                 $exchange_name = "NASDAQ";
+            } else {
+                $exchange_name = $exchange_value;
             }
         ?>
             <tr>
@@ -200,7 +201,12 @@ function closeTradingView() {
 }
 </style>
 
-        <?php } $con->close(); ?>
+        <?php
+            } catch (Throwable $e) {
+                error_log("Index table row skip - " . ($fetch_categories["symbl"] ?? '?') . ": " . $e->getMessage());
+                continue;
+            }
+        } $con->close(); ?>
         
     </tbody>
 </table>

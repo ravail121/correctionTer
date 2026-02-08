@@ -140,6 +140,7 @@ function closeTradingView() {
     }
 
         while ($fetch_categories = mysqli_fetch_array($categories_query)) {
+            try {
             $correctionRange = $fetch_categories["correction_range"];
             $market_cap = $fetch_categories["market_cap"];
             $average_volume = $fetch_categories["average_volume"];
@@ -200,7 +201,12 @@ function closeTradingView() {
 }
 </style>
 
-        <?php } $con->close(); ?>
+        <?php
+            } catch (Throwable $e) {
+                error_log("Index table row skip - " . ($fetch_categories["symbl"] ?? '?') . ": " . $e->getMessage());
+                continue;
+            }
+        } $con->close(); ?>
         
     </tbody>
 </table>

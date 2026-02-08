@@ -882,8 +882,9 @@ a {
      
         $lastClosePrice=$fetch_categories["last_close"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
 
 ?>
         <tr>
@@ -1254,8 +1255,9 @@ a {
      
         $lastClosePrice=$fetch_categories["last_close"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
         $exchange_name=$fetch_categories["exchange_name"];
         $exchange_name = str_replace(' ', '', $exchange_name);
         if ($exchange_name=='XNAS') {
@@ -1629,8 +1631,9 @@ a {
      
         $lastClosePrice=$fetch_categories["last_close_price"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
 
 ?>
         <tr>

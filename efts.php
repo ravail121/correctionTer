@@ -78,11 +78,12 @@ function closeTradingView() {
 
         $categories_query = mysqli_query($con, "SELECT * FROM `indexes` WHERE symbl IN ('NDX', 'IXIC') ORDER BY ID DESC");
         while ($fetch_categories = mysqli_fetch_array($categories_query)) {
-         
+         try {
         $lastClosePrice=$fetch_categories["last_close"];
         $allTimeHighPrice=$fetch_categories["all_time_high"];
-        $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
-        $correctionRange = number_format($correctionRange, 2);
+        $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+            ? number_format(($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100, 2)
+            : 0;
         $link = $fetch_categories["link"];
         
         // Format prices with commas (e.g., 25,018.24)
@@ -113,7 +114,12 @@ function closeTradingView() {
 }
 </style>
 
-        <?php } $con->close(); ?>
+        <?php
+        } catch (Throwable $e) {
+            error_log("Efts row skip: " . $e->getMessage());
+            continue;
+        }
+        } $con->close(); ?>
         
     </tbody>
 </table>

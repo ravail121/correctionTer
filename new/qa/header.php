@@ -398,6 +398,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <?php 
 $categories_query = mysqli_query($con, "SELECT * FROM companies");
  while ($fetch_popup = mysqli_fetch_array($categories_query)) {
+    try {
             $correctionRange = $fetch_popup["correction_range"];
             $market_cap = $fetch_popup["market_cap"];
             $average_volume = $fetch_popup["average_volume"];
@@ -418,6 +419,8 @@ $categories_query = mysqli_query($con, "SELECT * FROM companies");
                 $exchange_name = "NASDAQ";
             } elseif ($exchange_value == 'XNYS') {
                 $exchange_name = "NYSE";
+            } else {
+                $exchange_name = $exchange_value ?? "NASDAQ";
             }
 
 ?>
@@ -461,7 +464,12 @@ $categories_query = mysqli_query($con, "SELECT * FROM companies");
       
     </div>
   </div>   
-<?php } ?>
+<?php
+    } catch (Throwable $e) {
+        error_log("Header popup skip - Company ID " . ($fetch_popup["id"] ?? '?') . ": " . $e->getMessage());
+        continue;
+    }
+} ?>
 
 <script>
 function validateForm(modalId) {

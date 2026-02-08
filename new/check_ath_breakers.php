@@ -40,7 +40,9 @@ while ($row = $result->fetch_assoc()) {
             'current_price' => $currentPrice,
             'all_time_high' => $allTimeHigh,
             'difference' => $currentPrice - $allTimeHigh,
-            'difference_percent' => (($currentPrice - $allTimeHigh) / $allTimeHigh) * 100
+            'difference_percent' => ($allTimeHigh != 0 && is_numeric($allTimeHigh))
+                ? (($currentPrice - $allTimeHigh) / $allTimeHigh) * 100
+                : 0
         ];
     }
 }

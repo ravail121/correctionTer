@@ -127,8 +127,10 @@ function processCompanies($companies, $con, $errorTracker, $date) {
             }
             $allTimeHighPrice = max(array_column($allTimeHighData['results'], 'h'));
 
-            // Calculate correction range
-            $correctionRange = ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100;
+            // Calculate correction range (guard against division by zero)
+            $correctionRange = ($allTimeHighPrice != 0 && is_numeric($allTimeHighPrice))
+                ? ($lastClosePrice - $allTimeHighPrice) / $allTimeHighPrice * 100
+                : 0;
             $correctionRangeFormatted = formatCorrectionRange($correctionRange);
 
             // Fetch market cap
@@ -270,7 +272,9 @@ function processCompanies($companies, $con, $errorTracker, $date) {
             $previousClose = $lastTwo[0]['c'];  // 266.25 (20 Nov)
             $lastClose = $lastTwo[1]['c'];      // 271.49 (21 Nov)
             
-            $todaysChangePerc = number_format((($lastClose - $previousClose) / $previousClose) * 100, 2);
+            $todaysChangePerc = ($previousClose != 0 && is_numeric($previousClose))
+                ? number_format((($lastClose - $previousClose) / $previousClose) * 100, 2)
+                : 'N/A';
 
             // Convert todaysChangePerc to string if it's not null
             if ($todaysChangePerc !== null) {
