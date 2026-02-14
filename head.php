@@ -59,6 +59,34 @@
     twq('config','r0zgi');
     </script>
 
+    <!-- X Pixel: fire "returning user" once when user has visited on 3+ distinct days (main app only) -->
+    <script>
+    (function() {
+        var KEY_VISIT_DATES = 'xPixelVisitDates';
+        var KEY_FIRED = 'xPixelReturningFired';
+        var RETURNING_USER_EVENT_ID = 'tw-r0zgi-r5a6s';
+
+        if (localStorage.getItem(KEY_FIRED) === 'true') return;
+
+        var now = new Date();
+        var today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+        var raw = localStorage.getItem(KEY_VISIT_DATES);
+        var dates = raw ? JSON.parse(raw) : [];
+        if (dates.indexOf(today) === -1) {
+            dates.push(today);
+            dates.sort();
+            try { localStorage.setItem(KEY_VISIT_DATES, JSON.stringify(dates)); } catch (e) {}
+        }
+
+        var uniqueDays = dates.length;
+        if (uniqueDays >= 3 && typeof twq === 'function') {
+            twq('event', RETURNING_USER_EVENT_ID);
+            try { localStorage.setItem(KEY_FIRED, 'true'); } catch (e) {}
+        }
+    })();
+    </script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
