@@ -64,36 +64,12 @@
     (function() {
         var KEY_VISIT_DATES = 'xPixelVisitDates';
         var KEY_FIRED = 'xPixelReturningFired';
-        var KEY_START_DATE = 'xPixelStartDate';
         var RETURNING_USER_EVENT_ID = 'tw-r0zgi-r5a6s';
-        var RESET_DAYS = 7;
+
+        if (localStorage.getItem(KEY_FIRED) === 'true') return;
 
         var now = new Date();
         var today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-
-        // Get or set the starting date
-        var rawStartDate = localStorage.getItem(KEY_START_DATE);
-        var startDate = rawStartDate || today;
-        
-        // Check if 7 days have passed since starting date
-        var startDateObj = new Date(startDate + 'T00:00:00');
-        var todayObj = new Date(today + 'T00:00:00');
-        var daysDiff = Math.floor((todayObj - startDateObj) / (1000 * 60 * 60 * 24));
-        
-        // Reset if 7+ days have passed
-        if (daysDiff >= RESET_DAYS) {
-            localStorage.removeItem(KEY_VISIT_DATES);
-            localStorage.removeItem(KEY_FIRED);
-            localStorage.setItem(KEY_START_DATE, today);
-            startDate = today;
-            daysDiff = 0;
-        } else if (!rawStartDate) {
-            // First visit - set the starting date
-            localStorage.setItem(KEY_START_DATE, today);
-        }
-
-        // Only proceed if event hasn't been fired in this 7-day period
-        if (localStorage.getItem(KEY_FIRED) === 'true') return;
 
         var raw = localStorage.getItem(KEY_VISIT_DATES);
         var dates = raw ? JSON.parse(raw) : [];
