@@ -99,6 +99,55 @@
       gtag('config', 'G-YJ3D68Y1WY');
     </script>
 
+    <!-- Google Analytics: fire "real_user" event when user visits on 3+ distinct days, then once per day -->
+    <script>
+    (function() {
+        var KEY_VISIT_DATES = 'gaRealUserVisitDates';
+        var KEY_IS_REAL = 'gaRealUserIsReal';
+        var KEY_SENT_TODAY = 'gaRealUserSentToday';
+        var EVENT_NAME = 'real_user';
+
+        var now = new Date();
+        var today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+
+        // Get current flags
+        var isReal = localStorage.getItem(KEY_IS_REAL) === 'true';
+        var sentToday = localStorage.getItem(KEY_SENT_TODAY) === today;
+
+        // If user is already marked as real and event was sent today, skip
+        if (isReal && sentToday) {
+            return;
+        }
+
+        // Track visit dates
+        var raw = localStorage.getItem(KEY_VISIT_DATES);
+        var dates = raw ? JSON.parse(raw) : [];
+        if (dates.indexOf(today) === -1) {
+            dates.push(today);
+            dates.sort();
+            try { localStorage.setItem(KEY_VISIT_DATES, JSON.stringify(dates)); } catch (e) {}
+        }
+
+        var uniqueDays = dates.length;
+
+        // If user has visited on 3+ different dates and not yet marked as real
+        if (uniqueDays >= 3 && !isReal && typeof gtag === 'function') {
+            gtag('event', EVENT_NAME);
+            try { 
+                localStorage.setItem(KEY_IS_REAL, 'true');
+                localStorage.setItem(KEY_SENT_TODAY, today);
+            } catch (e) {}
+        }
+        // If user is already marked as real and event hasn't been sent today
+        else if (isReal && !sentToday && typeof gtag === 'function') {
+            gtag('event', EVENT_NAME);
+            try { 
+                localStorage.setItem(KEY_SENT_TODAY, today);
+            } catch (e) {}
+        }
+    })();
+    </script>
+
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf9TEcqAAAAAHau8MDGhNq4BmRG2sjiaXhaX3P9"></script>
     <style>
