@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Google Analytics gtag tracking (new)
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'filter_event_google', {
+                gtag('event', 'filter_click', {
                     'button_name': buttonName
                 });
             }
@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Google Analytics gtag tracking (new)
                 if (typeof gtag !== 'undefined') {
-                    gtag('event', 'filter_event_google', {
+                    gtag('event', 'filter_click', {
                         'button_name': buttonName
                     });
                 }
