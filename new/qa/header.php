@@ -304,45 +304,6 @@ if (isset($_GET['filter'])) {
 </script>
    <?php } } ?>
 
-<!-- Google Analytics - Filter Click Tracking -->
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-    // Track clicks on filter link buttons (Big 7, Crypto, Indexes, Popular, All)
-    var filterLinks = document.querySelectorAll('#scrollableDiv a');
-    filterLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            // Get button name from the label text
-            var buttonName = this.querySelector('label') ? this.querySelector('label').textContent.trim() : 'Unknown';
-            
-            // Google Analytics gtag tracking
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'filter_event_google', {
-                    'button_name': buttonName
-                });
-            }
-        });
-    });
-    
-    // Track clicks on Favorites radio button
-    var favoritesRadio = document.getElementById('filterOptionsFav');
-    if (favoritesRadio) {
-        favoritesRadio.addEventListener('change', function() {
-            if (this.checked) {
-                var buttonName = 'Favorites';
-                
-                // Google Analytics gtag tracking
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'filter_event_google', {
-                        'button_name': buttonName
-                    });
-                }
-            }
-        });
-    }
-});
-</script>
- 
-
     <?php if (isset($msg)) { echo $msg;} ?>
         <p class="hidden text-muted text1" id="datatext">Data Last Updated:
                     <?php
