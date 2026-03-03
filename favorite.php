@@ -346,10 +346,10 @@ function closeTradingView() {
     searching: false,
     paging: false,
     info: false,
-    order: [], // Keep this empty if you don't want any default sorting at initialization
+    order: [[7, 'asc']], // Sort by correction range column (index 7) ascending - green on top
     columnDefs: [
         { orderSequence: ["desc", "asc"], targets: "_all" }, // Default order sequence for all columns
-        { orderable: false, targets: 8 } // Disable sorting for the "Correction Range" column (index 7)
+        { orderable: false, targets: 8 } // Disable sorting for the question icon column (index 8)
     ]
 });
 
