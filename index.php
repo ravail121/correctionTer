@@ -291,13 +291,13 @@ function closeTradingView() {
          var filter = urlParams.get('filter');
          var tableFilter = $('#stockTable').data('filter');
          var isAllFilter = (filter === 'all' || tableFilter === 'all');
-         var defaultOrder = isAllFilter ? [[0, 'asc']] : [[7, 'asc']]; // Sort by company name for "all", correction range for others
+         var defaultOrder = isAllFilter ? [[4, 'desc']] : [[7, 'asc']]; // Sort by Highs Count descending for "all", correction range for others
          
          var table = $('#stockTable').DataTable({
     searching: false,
     paging: false,
     info: false,
-    order: defaultOrder, // Sort by company name for "all" filter, correction range for others
+    order: defaultOrder, // Sort by Highs Count descending for "all" filter, correction range for others
     columnDefs: [
         { orderSequence: ["desc", "asc"], targets: "_all" }, // Default order sequence for all columns
         { orderable: false, targets: 8 } // Disable sorting for the question icon column (index 8)
@@ -427,18 +427,18 @@ function closeTradingView() {
                         cache: false,
                         success: function(result) {
                             $("#tablesList").html(result); // Insert result into the tables list div
-                            // Reinitialize DataTable with alphabetical sorting for "all" filter
+                            // Reinitialize DataTable with Highs Count descending sorting for "all" filter
                             if ($.fn.DataTable.isDataTable('#stockTable')) {
                                 $('#stockTable').DataTable().destroy();
                             }
                             // Check if table has data-filter="all" attribute
                             var isAllFilter = $('#stockTable').data('filter') === 'all';
-                            var defaultOrder = isAllFilter ? [[0, 'asc']] : [[7, 'asc']];
+                            var defaultOrder = isAllFilter ? [[4, 'desc']] : [[7, 'asc']];
                             $('#stockTable').DataTable({
                                 searching: false,
                                 paging: false,
                                 info: false,
-                                order: defaultOrder, // Sort by company name for "all" filter, correction range for others
+                                order: defaultOrder, // Sort by Highs Count descending for "all" filter, correction range for others
                                 columnDefs: [
                                     { orderSequence: ["desc", "asc"], targets: "_all" },
                                     { orderable: false, targets: 8 }
