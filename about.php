@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Correction Territory</title>
+    <title>About Us - Correction Territory</title>
     <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- All in One SEO 4.6.7.1 - aioseo.com -->
         <meta name="robots" content="max-image-preview:large" />
         <meta name="generator" content="All in One SEO (AIOSEO) 4.6.7.1" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:site_name" content="Correction Territory - Invest Simply" />
+        <meta property="og:site_name" content="Correction Territory" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Simple Calculator for Tracking Stocks' Gap from All-Time Highs" />
         <meta property="og:url" content="https://correctionterritory.com/blogs/home/" />
@@ -33,6 +33,10 @@
         <meta property="og:site_name" content="Correction Territory" class="yoast-seo-meta-tag" />
         <meta property="article:modified_time" content="2024-07-14T21:13:56+00:00" class="yoast-seo-meta-tag" />
         <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag" />
+        <!-- Organization & WebSite schema for search engines (brand name in SERPs) -->
+        <script type="application/ld+json">
+        {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://correctionterritory.com/#organization","name":"Correction Territory","url":"https://correctionterritory.com/"},{"@type":"WebSite","@id":"https://correctionterritory.com/#website","name":"Correction Territory","url":"https://correctionterritory.com/","publisher":{"@id":"https://correctionterritory.com/#organization"}}]}
+        </script>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985"
      crossorigin="anonymous"></script>
 </head>

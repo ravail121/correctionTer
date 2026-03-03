@@ -11,7 +11,7 @@
     <meta name="robots" content="max-image-preview:large" />
     <meta name="generator" content="All in One SEO (AIOSEO) 4.6.7.1" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Correction Territory - Invest Simply" />
+    <meta property="og:site_name" content="Correction Territory" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Tracking Stocks' Gap from All-Time Highs" />
     <meta property="og:description" content="Track how far S&P 500 stocks are from their all-time highs. Identify high-quality companies trading in correction territory (10%+ below peak) and measure real-time market breadth." />
@@ -49,6 +49,28 @@
     <meta property="og:site_name" content="Correction Territory" class="yoast-seo-meta-tag" />
     <meta property="article:modified_time" content="2024-07-14T21:13:56+00:00" class="yoast-seo-meta-tag" />
     <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag" />
+    
+    <!-- Organization & WebSite schema for search engines (brand name in SERPs) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://correctionterritory.com/#organization",
+          "name": "Correction Territory",
+          "url": "https://correctionterritory.com/"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://correctionterritory.com/#website",
+          "name": "Correction Territory",
+          "url": "https://correctionterritory.com/",
+          "publisher": { "@id": "https://correctionterritory.com/#organization" }
+        }
+      ]
+    }
+    </script>
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
