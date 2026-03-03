@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Correction Territory</title>
+    <meta name="description" content="Track how far S&P 500 stocks are from their all-time highs. Identify high-quality companies trading in correction territory (10%+ below peak) and measure real-time market breadth.">
 
     <link rel="icon" href="images/icon.png" type="image/x-icon">
     
@@ -13,6 +14,7 @@
     <meta property="og:site_name" content="Correction Territory - Invest Simply" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Tracking Stocks' Gap from All-Time Highs" />
+    <meta property="og:description" content="Track how far S&P 500 stocks are from their all-time highs. Identify high-quality companies trading in correction territory (10%+ below peak) and measure real-time market breadth." />
     <meta property="og:url" content="https://correctionterritory.com/" />
     <meta property="article:published_time" content="2024-05-20T20:33:00+00:00" />
     <meta property="article:modified_time" content="2024-07-14T21:13:56+00:00" />
