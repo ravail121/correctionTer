@@ -217,7 +217,7 @@
    <h3 class="customheading mt-6">S&P 500 Stocks and Their Current<br/> Percentage Gap to All-Time High</h3>
    <div class="row">
        <div class="offset-md-4 col-md-4 offset-sm-2 col-sm-8 offset-2 col-8">
-        <form method="POST" action="index.php">
+        <form method="POST" action="all">
          <div class="input-group">
               <input type="text" class="form-control" placeholder="Search Company" id="company-input" name="serachCompany" style="border-radius: 6px;height:28px;" onkeyup="showSuggestions()">
               <button class="input-group-append" name="filterCompany" style="border:0px;padding:0px;margin: 0px;height: max-content;margin-left: 5px;background: none;">

@@ -5,7 +5,8 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteBase /correction1/
+# Use / when app is at document root (e.g. localhost, Docker). Use /correction1/ on production if in subdir.
+RewriteBase /
 
 # Clean URLs for filter pages - must come before WordPress rules
 # Redirect old URLs to clean URLs (301 permanent redirect for SEO)
@@ -31,14 +32,14 @@ RewriteRule ^favorites/?$ favorite.php?filter=favorites [L,QSA]
 # All
 RewriteRule ^all/?$ index.php?filter=all [L,QSA]
 
-# Default: if accessing root index.php without filter, show big-7
-RewriteCond %{REQUEST_URI} ^/correction1/?$
+# Default: if accessing root without filter, show big-7
+RewriteCond %{REQUEST_URI} ^/?$
 RewriteRule ^$ index.php?filter=big-7 [L,QSA]
 
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /correction1/index.php [L]
+RewriteRule . /index.php [L]
 </IfModule>
 <IfModule mod_php7.c>
     php_value max_execution_time 1800
