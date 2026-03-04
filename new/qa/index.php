@@ -1,4 +1,28 @@
 <?php
+// Handle clean URLs - extract filter from URL path if not in query string
+if (!isset($_GET['filter']) && isset($_SERVER['REQUEST_URI'])) {
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $path = parse_url($request_uri, PHP_URL_PATH);
+    
+    // Extract the last segment of the path
+    $path_parts = explode('/', trim($path, '/'));
+    $last_segment = end($path_parts);
+    
+    // Map clean URL segments to filter values
+    $filter_map = [
+        'big-7' => 'big-7',
+        'crypto' => 'crypto',
+        'indexes' => 'eft',
+        'popular' => 'pouplar',
+        'favorites' => 'favorites',
+        'all' => 'all'
+    ];
+    
+    if (isset($filter_map[$last_segment])) {
+        $_GET['filter'] = $filter_map[$last_segment];
+    }
+}
+
 include "db.php";
 if(isset($_POST['setnotification'])){
     $useremail=$_POST['useremail'];
@@ -362,7 +386,7 @@ function closeTradingView() {
                 // Create a form and submit it to cause page reload (like other filters)
                 var form = document.createElement("form");
                 form.method = "POST";
-                form.action = "favorite.php?filter=favorites";
+                form.action = "favorites";
 
                 // Create a hidden input field for favorites
                 var input = document.createElement("input");
@@ -380,7 +404,7 @@ function closeTradingView() {
                 // Even if no favorites, still submit to show the table with message
                 var form = document.createElement("form");
                 form.method = "POST";
-                form.action = "favorite.php?filter=favorites";
+                form.action = "favorites";
 
                 // Create a hidden input field for favorites (empty array)
                 var input = document.createElement("input");

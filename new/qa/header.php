@@ -233,7 +233,7 @@
         <div class="col-12 col1-12 d-flex flex-wrap justify-content-center" id="scrollableDiv">
 <!-- Big 7 (default / first) -->
 <div class="form-check form-check-inline">
-    <a href="index.php?filter=big-7">
+    <a href="big-7">
         <label class="form-check-label custom-btn <?php if (!isset($_GET['filter']) || $_GET['filter']=='big-7'){echo 'checked';} ?>">
             Big 7
         </label>
@@ -242,7 +242,7 @@
 
 <!-- Crypto -->
 <div class="form-check form-check-inline">
-    <a href="crypto.php?filter=crypto">
+    <a href="crypto">
         <label class="form-check-label custom-btn <?php if (isset($_GET['filter']) && $_GET['filter']=='crypto'){echo 'checked';} ?>">
             Crypto
         </label>
@@ -251,7 +251,7 @@
 
 <!-- Indexes -->
 <div class="form-check form-check-inline">
-    <a href="efts.php?filter=eft">
+    <a href="indexes">
         <label class="form-check-label custom-btn <?php if (isset($_GET['filter']) && $_GET['filter']=='eft'){echo 'checked';} ?>">
             Indexes
         </label>
@@ -266,7 +266,7 @@
 
 <!-- Popular -->
 <div class="form-check form-check-inline">
-    <a href="index.php?filter=pouplar">
+    <a href="popular">
         <label class="form-check-label custom-btn <?php if (isset($_GET['filter']) && $_GET['filter']=='pouplar'){echo 'checked';} ?>">
             Popular
         </label>
@@ -275,7 +275,7 @@
 
 <!-- All -->
 <div class="form-check form-check-inline">
-    <a href="index.php?filter=all">
+    <a href="all">
         <label class="form-check-label custom-btn <?php if (isset($_GET['filter']) && $_GET['filter']=='all'){echo 'checked';} ?>">
             All
         </label>

@@ -1,4 +1,16 @@
 <?php
+// Handle clean URLs - extract filter from URL path if not in query string
+if (!isset($_GET['filter']) && isset($_SERVER['REQUEST_URI'])) {
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $path = parse_url($request_uri, PHP_URL_PATH);
+    $path_parts = explode('/', trim($path, '/'));
+    $last_segment = end($path_parts);
+    
+    if ($last_segment === 'crypto') {
+        $_GET['filter'] = 'crypto';
+    }
+}
+
 include "db.php";
 if(isset($_POST['setnotification'])){
     $useremail=$_POST['useremail'];
@@ -296,7 +308,7 @@ if(isset($_POST['setnotification'])){
                     // Create a form
                     var form = document.createElement("form");
                     form.method = "POST";
-                    form.action = "favorite.php?filter=favorites";
+                    form.action = "favorites";
 
                     // Create a hidden input field for favorites
                     var input = document.createElement("input");
