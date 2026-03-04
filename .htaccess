@@ -6,6 +6,35 @@
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /correction1/
+
+# Clean URLs for filter pages - must come before WordPress rules
+# Redirect old URLs to clean URLs (301 permanent redirect for SEO)
+RewriteCond %{THE_REQUEST} \s/+((index|efts|crypto|favorite)\.php)\?filter=([^\s&]+) [NC]
+RewriteRule ^ %3? [R=301,L]
+
+# Handle clean URLs - rewrite to actual PHP files
+# Big 7 (default)
+RewriteRule ^big-7/?$ index.php?filter=big-7 [L,QSA]
+
+# Crypto
+RewriteRule ^crypto/?$ crypto.php?filter=crypto [L,QSA]
+
+# Indexes (maps to efts.php)
+RewriteRule ^indexes/?$ efts.php?filter=eft [L,QSA]
+
+# Popular
+RewriteRule ^popular/?$ index.php?filter=pouplar [L,QSA]
+
+# Favorites
+RewriteRule ^favorites/?$ favorite.php?filter=favorites [L,QSA]
+
+# All
+RewriteRule ^all/?$ index.php?filter=all [L,QSA]
+
+# Default: if accessing root index.php without filter, show big-7
+RewriteCond %{REQUEST_URI} ^/correction1/?$
+RewriteRule ^$ index.php?filter=big-7 [L,QSA]
+
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
