@@ -50,27 +50,14 @@
     <meta property="article:modified_time" content="2024-07-14T21:13:56+00:00" class="yoast-seo-meta-tag" />
     <meta name="twitter:card" content="summary_large_image" class="yoast-seo-meta-tag" />
     
-    <!-- Organization & WebSite schema for search engines (brand name in SERPs) -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
         {
-          "@type": "Organization",
-          "@id": "https://correctionterritory.com/#organization",
-          "name": "Correction Territory",
-          "url": "https://correctionterritory.com/"
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://correctionterritory.com/#website",
-          "name": "Correction Territory",
-          "alternateName": "Correction Territory",
-          "url": "https://correctionterritory.com/",
-          "publisher": { "@id": "https://correctionterritory.com/#organization" }
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Correction Territory",
+        "alternateName": "CorrectionTerritory",
+        "url": "https://correctionterritory.com/"
         }
-      ]
-    }
     </script>
     
     <!-- Google AdSense -->
