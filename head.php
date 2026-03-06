@@ -12,7 +12,7 @@
     <meta name="generator" content="All in One SEO (AIOSEO) 4.6.7.1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Correction Territory" />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="Tracking Stocks' Gap from All-Time Highs" />
     <meta property="og:description" content="Track how far S&P 500 stocks are from their all-time highs. Identify high-quality companies trading in correction territory (10%+ below peak) and measure real-time market breadth." />
     <meta property="og:url" content="https://correctionterritory.com/" />
@@ -43,7 +43,7 @@
     <!-- Canonical Link -->
     <link rel="canonical" href="https://correctionterritory.com/" class="yoast-seo-meta-tag" />
     <meta property="og:locale" content="en_US" class="yoast-seo-meta-tag" />
-    <meta property="og:type" content="article" class="yoast-seo-meta-tag" />
+    <meta property="og:type" content="website" class="yoast-seo-meta-tag" />
     <meta property="og:title" content="Tracking Stocks' Gap from All-Time Highs" class="yoast-seo-meta-tag" />
     <meta property="og:url" content="https://correctionterritory.com" class="yoast-seo-meta-tag" />
     <meta property="og:site_name" content="Correction Territory" class="yoast-seo-meta-tag" />
@@ -65,6 +65,7 @@
           "@type": "WebSite",
           "@id": "https://correctionterritory.com/#website",
           "name": "Correction Territory",
+          "alternateName": "Correction Territory",
           "url": "https://correctionterritory.com/",
           "publisher": { "@id": "https://correctionterritory.com/#organization" }
         }
