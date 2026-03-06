@@ -1,4 +1,4 @@
-<div class="jumbotron pt-4"  style="margin-bottom: 0px;background-color: #333333;border-radius:0px;padding-bottom: 0px;padding-top:80px;padding-bottom:40px;">
+<div class="jumbotron pt-4" data-nosnippet style="margin-bottom: 0px;background-color: #333333;border-radius:0px;padding-bottom: 0px;padding-top:80px;padding-bottom:40px;">
 <div class="container">
 <div class="row pt-4">
 	<div class="col-md-4">
@@ -24,7 +24,7 @@
 </div>	
 </div>
 </div>
-<div class="jumbotron" style="margin-bottom:0px;background-color: #141414;border-radius:0px;padding: 0.6rem 2rem;">
+<div class="jumbotron" data-nosnippet style="margin-bottom:0px;background-color: #141414;border-radius:0px;padding: 0.6rem 2rem;">
 	<div class="row">
 		<div class="offset-md-1 col-md-11">
 			<p class="text" style="text-align:center;">Copyright 2026 © Correction Territory</p>
