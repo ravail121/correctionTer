@@ -4,7 +4,7 @@
 	<div class="col-md-4">
 		<h4 class="text">ABOUT US</h4>
 		<p class="text">
-			Welcome to Correction Territory, your premier online destination for exploring and investing in the stock market. Whether you are an experienced trader or just beginning your investment journey, we provide simple indicators to help you make informed and easy decisions.
+		Welcome to Correction Territory, your premier online destination for exploring and investing in the stock market. Whether you are an experienced trader or just beginning your investment journey, we provide simple indicators to help you make informed and easy decisions.
 		</p>
 	</div>
 	<div class="col-md-4">
