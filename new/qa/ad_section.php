@@ -11,8 +11,8 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
 <?php endif; ?>
 
-<div class="ad-row" style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
-  <div style="flex:1; min-width:280px;">
+<div class="ad-row" style="margin:12px 0;">
+  <div style="margin-bottom:12px;">
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-8754771874266985"
@@ -21,7 +21,7 @@
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-  <div style="flex:1; min-width:280px;">
+  <div style="margin-bottom:12px;">
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-8754771874266985"

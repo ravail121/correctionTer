@@ -480,7 +480,7 @@ function closeTradingView() {
 <!-- Cookies Consent Popup -->
 <div id="cookieConsent" class="cookie-consent">
   <p>This website uses cookies to ensure you get the best experience on our website. 
-    <a href="../../terms-and-conditions.php">Learn more</a>
+    <a href="terms-and-conditions.php">Learn more</a>
   </p>
   <button id="acceptCookies" class="btn btn-primary btn-sm mt-2">Accept</button>
 </div>
