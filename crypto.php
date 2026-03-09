@@ -166,28 +166,6 @@ if(isset($_POST['setnotification'])){
 
     </div>
 <br/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985"
-     crossorigin="anonymous"></script>
-<div class="ad-row" style="display:flex; flex-wrap:wrap; gap:12px; margin:12px 0;">
-<div style="flex:1; min-width:280px;">
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8754771874266985"
-     data-ad-slot="7225743774"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<div style="flex:1; min-width:280px;">
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-8754771874266985"
-     data-ad-slot="7225743774"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-</div>
 </div>
 <!-- Include JavaScript for handling favorite functionality -->
 <script>

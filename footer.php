@@ -1,3 +1,4 @@
+<?php include "ad_section.php"; ?>
 <div class="jumbotron pt-4" data-nosnippet style="margin-bottom: 0px;background-color: #333333;border-radius:0px;padding-bottom: 0px;padding-top:80px;padding-bottom:40px;">
 <div class="container">
 <div class="row pt-4">
