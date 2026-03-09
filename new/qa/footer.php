@@ -1,3 +1,4 @@
+<?php include "ad_section.php"; ?>
 <div class="jumbotron pt-4"  style="margin-bottom: 0px;background-color: #333333;border-radius:0px;padding-bottom: 0px;padding-top:80px;padding-bottom:40px;">
 <div class="container">
 <div class="row pt-4">
@@ -11,8 +12,9 @@
 		<h4 class="text">QUICK LINKS</h4>
 		<ul class="footer-ul">
 			<li><a class="text" href="index.php">Home</a></li>
-			<li><a class="text" href="../../about.php">About Us</a></li>
-			<li><a class="text" href="../../terms-and-conditions.php">Terms & Conditions</a></li>
+			<li><a class="text" href="about.php">About Us</a></li>
+			<li><a class="text" href="contact-us.php">Contact Us</a></li>
+			<li><a class="text" href="terms-and-conditions.php">Terms & Conditions</a></li>
 		</ul>
 	</div>
 	<div class="col-md-4">
