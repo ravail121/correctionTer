@@ -10,19 +10,19 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
 <?php endif; ?>
 
-<div class="ad-row" style="margin:12px 0;">
-  <div style="margin-bottom:12px;">
+<div class="ad-row" style="margin:12px 0; display:flex; flex-direction:column; align-items:center;">
+  <div style="margin-bottom:12px; width:100%; max-width:900px; display:flex; justify-content:center;">
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
          data-ad-slot="7225743774"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-  <div style="margin-bottom:12px;">
+  <div style="margin-bottom:12px; width:100%; max-width:900px; display:flex; justify-content:center;">
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
          data-ad-slot="2910158078"
          data-ad-format="auto"
