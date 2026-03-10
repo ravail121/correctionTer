@@ -11,7 +11,7 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
 <?php endif; ?>
 
-<div class="ad-row" style="max-width:1140px; margin:12px auto; padding:0 12px; text-align:center;">
+<div class="container" style="padding:0 5px; margin:12px auto; text-align:center;">
   <div style="margin:0 auto 12px; max-width:100%;">
     <ins class="adsbygoogle"
          style="display:block; margin:0 auto;"
