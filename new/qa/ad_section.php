@@ -11,19 +11,19 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
 <?php endif; ?>
 
-<div class="ad-row" style="margin:12px 0;">
-  <div style="margin-bottom:12px;">
+<div class="ad-row" style="max-width:1140px; margin:12px auto; padding:0 12px; text-align:center;">
+  <div style="margin:0 auto 12px; max-width:100%;">
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
          data-ad-slot="7225743774"
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-  <div style="margin-bottom:12px;">
+  <div style="margin:0 auto 12px; max-width:100%;">
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
          data-ad-slot="2910158078"
          data-ad-format="auto"
