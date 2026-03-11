@@ -73,36 +73,104 @@
 <!-- Initialize ads lazily after page load -->
 <script>
 (function() {
+  var adsInitialized = false;
+  
   function initializeAds() {
-    if (typeof adsbygoogle !== 'undefined' && adsbygoogle.loaded !== true) {
-      try {
-        var adContainers = document.querySelectorAll('.adsbygoogle');
-        adContainers.forEach(function(adContainer) {
-          if (!adContainer.dataset.adsbygoogleStatus) {
+    // Prevent double initialization
+    if (adsInitialized) {
+      return;
+    }
+    
+    try {
+      // Ensure adsbygoogle array exists
+      window.adsbygoogle = window.adsbygoogle || [];
+      
+      // Get all ad containers that haven't been initialized
+      var adContainers = document.querySelectorAll('.adsbygoogle');
+      var uninitialized = [];
+      
+      adContainers.forEach(function(adContainer) {
+        // Check if this ad has been initialized
+        if (!adContainer.hasAttribute('data-adsbygoogle-status')) {
+          uninitialized.push(adContainer);
+        }
+      });
+      
+      // Initialize each uninitialized ad
+      if (uninitialized.length > 0 && typeof adsbygoogle !== 'undefined') {
+        uninitialized.forEach(function(adContainer) {
+          try {
             (adsbygoogle = window.adsbygoogle || []).push({});
+          } catch (e) {
+            console.warn('AdSense push error for container:', e);
           }
         });
-      } catch (e) {
-        console.warn('AdSense initialization error:', e);
+        adsInitialized = true;
       }
+    } catch (e) {
+      console.warn('AdSense initialization error:', e);
     }
   }
   
-  // Initialize ads after a short delay to ensure script is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(initializeAds, 500);
-    });
-  } else {
-    setTimeout(initializeAds, 500);
-  }
-  
-  // Fallback: try again after 2 seconds if ads not initialized
-  setTimeout(function() {
+  // Function to check if AdSense script is loaded and initialize
+  function tryInitializeAds() {
+    // Check if the script has loaded by checking for adsbygoogle object
     if (typeof adsbygoogle !== 'undefined') {
       initializeAds();
+      return true;
     }
-  }, 2000);
+    return false;
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait a bit for script to potentially load
+      setTimeout(function() {
+        if (!tryInitializeAds()) {
+          // Script not loaded yet, poll for it
+          var attempts = 0;
+          var maxAttempts = 50; // 5 seconds max (50 * 100ms)
+          var pollInterval = setInterval(function() {
+            attempts++;
+            if (tryInitializeAds() || attempts >= maxAttempts) {
+              clearInterval(pollInterval);
+              // Final attempt
+              if (attempts >= maxAttempts) {
+                initializeAds();
+              }
+            }
+          }, 100);
+        }
+      }, 300);
+    });
+  } else {
+    // DOM already ready
+    setTimeout(function() {
+      if (!tryInitializeAds()) {
+        var attempts = 0;
+        var maxAttempts = 50;
+        var pollInterval = setInterval(function() {
+          attempts++;
+          if (tryInitializeAds() || attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            if (attempts >= maxAttempts) {
+              initializeAds();
+            }
+          }
+        }, 100);
+      }
+    }, 300);
+  }
+  
+  // Final fallback after page fully loads
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (!adsInitialized) {
+        initializeAds();
+      }
+    }, 1500);
+  });
 })();
 </script>
 
