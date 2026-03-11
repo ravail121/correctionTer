@@ -239,20 +239,13 @@
     return isChrome || isEdge;
   }
 
-  // Check if already installed
-  function isPWAInstalled() {
-    return window.matchMedia('(display-mode: standalone)').matches || 
-           window.navigator.standalone === true;
-  }
-
-  // Only proceed if Chrome/Edge and not already installed
-  if (!isChromeOrEdge() || isPWAInstalled()) {
+  // Only proceed if Chrome/Edge
+  if (!isChromeOrEdge()) {
     return;
   }
 
   let deferredPrompt = null;
   const installBtn = document.getElementById('pwaInstallBtn');
-  let showTimeout = null;
 
   // Listen for the beforeinstallprompt event
   window.addEventListener('beforeinstallprompt', function(e) {
@@ -260,12 +253,8 @@
     e.preventDefault();
     deferredPrompt = e;
 
-    // Show button after 10 seconds (only if not already visible)
-    showTimeout = setTimeout(function() {
-      if (deferredPrompt && !isPWAInstalled() && installBtn.style.display === 'none') {
-        installBtn.style.display = 'block';
-      }
-    }, 10000); // 10 seconds
+    // Show button immediately when install prompt is available
+    installBtn.style.display = 'block';
   });
 
   // Handle button click
@@ -289,28 +278,6 @@
       installBtn.style.display = 'none';
     }
     // If dismissed, button stays visible so user can try again later
-
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-      showTimeout = null;
-    }
-  });
-
-  // Hide button if app is installed
-  window.addEventListener('appinstalled', function() {
-    deferredPrompt = null;
-    installBtn.style.display = 'none';
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-      showTimeout = null;
-    }
-  });
-
-  // Clean up on page unload
-  window.addEventListener('beforeunload', function() {
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-    }
   });
 })();
 </script>
