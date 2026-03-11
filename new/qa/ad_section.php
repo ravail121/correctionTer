@@ -8,44 +8,60 @@
 
 <?php if (!defined('ADSENSE_LOADED')): ?>
   <?php define('ADSENSE_LOADED', true); ?>
-  <!-- AdSense script loaded lazily to prevent blocking -->
+  <!-- AdSense script loaded only after page fully loads to prevent blocking -->
   <script>
   (function() {
-    // Load AdSense script with timeout protection
-    var scriptLoaded = false;
-    var scriptTimeout = setTimeout(function() {
-      if (!scriptLoaded) {
-        console.warn('AdSense script load timeout - continuing without blocking');
-        // Mark as loaded to prevent further blocking
-        window.adsbygoogle = window.adsbygoogle || [];
-        scriptLoaded = true;
+    // Only load AdSense script after page is fully loaded (all resources loaded)
+    function loadAdSenseScript() {
+      // Prevent multiple loads
+      if (window.adsenseScriptLoading || window.adsenseScriptLoaded) {
+        return;
       }
-    }, 3000); // 3 second timeout
+      
+      window.adsenseScriptLoading = true;
+      var scriptLoaded = false;
+      var scriptTimeout = setTimeout(function() {
+        if (!scriptLoaded) {
+          console.warn('AdSense script load timeout - continuing without blocking');
+          // Mark as loaded to prevent further blocking
+          window.adsbygoogle = window.adsbygoogle || [];
+          scriptLoaded = true;
+          window.adsenseScriptLoading = false;
+        }
+      }, 5000); // 5 second timeout
+      
+      var script = document.createElement('script');
+      script.async = true;
+      script.defer = true;
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985';
+      script.crossOrigin = 'anonymous';
+      script.onload = function() {
+        scriptLoaded = true;
+        clearTimeout(scriptTimeout);
+        window.adsenseScriptLoaded = true;
+        window.adsenseScriptLoading = false;
+      };
+      script.onerror = function() {
+        scriptLoaded = true;
+        clearTimeout(scriptTimeout);
+        window.adsenseScriptLoading = false;
+        console.warn('AdSense script failed to load');
+      };
+      
+      // Append script to head
+      document.head.appendChild(script);
+    }
     
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985';
-    script.crossOrigin = 'anonymous';
-    script.onload = function() {
-      scriptLoaded = true;
-      clearTimeout(scriptTimeout);
-    };
-    script.onerror = function() {
-      scriptLoaded = true;
-      clearTimeout(scriptTimeout);
-      console.warn('AdSense script failed to load');
-    };
-    // Load script after page is interactive
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-          document.head.appendChild(script);
-        }, 100);
-      });
+    // Wait for window.load event (page fully loaded including all resources)
+    if (document.readyState === 'complete') {
+      // Page already fully loaded, load script after a short delay
+      setTimeout(loadAdSenseScript, 500);
     } else {
-      setTimeout(function() {
-        document.head.appendChild(script);
-      }, 100);
+      // Wait for page to fully load
+      window.addEventListener('load', function() {
+        // Additional delay to ensure page is fully rendered
+        setTimeout(loadAdSenseScript, 500);
+      });
     }
   })();
   </script>
@@ -70,7 +86,7 @@
   </div>
 </div>
 
-<!-- Initialize ads lazily after page load -->
+<!-- Initialize ads only after page fully loads and AdSense script is ready -->
 <script>
 (function() {
   var adsInitialized = false;
@@ -115,62 +131,56 @@
   // Function to check if AdSense script is loaded and initialize
   function tryInitializeAds() {
     // Check if the script has loaded by checking for adsbygoogle object
-    if (typeof adsbygoogle !== 'undefined') {
+    // Also verify the script is actually loaded (not just the array initialized)
+    if (typeof adsbygoogle !== 'undefined' && window.adsenseScriptLoaded) {
       initializeAds();
       return true;
     }
     return false;
   }
   
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      // Wait a bit for script to potentially load
-      setTimeout(function() {
-        if (!tryInitializeAds()) {
-          // Script not loaded yet, poll for it
-          var attempts = 0;
-          var maxAttempts = 50; // 5 seconds max (50 * 100ms)
-          var pollInterval = setInterval(function() {
-            attempts++;
-            if (tryInitializeAds() || attempts >= maxAttempts) {
-              clearInterval(pollInterval);
-              // Final attempt
-              if (attempts >= maxAttempts) {
-                initializeAds();
-              }
-            }
-          }, 100);
-        }
-      }, 300);
-    });
-  } else {
-    // DOM already ready
-    setTimeout(function() {
-      if (!tryInitializeAds()) {
-        var attempts = 0;
-        var maxAttempts = 50;
-        var pollInterval = setInterval(function() {
-          attempts++;
-          if (tryInitializeAds() || attempts >= maxAttempts) {
-            clearInterval(pollInterval);
-            if (attempts >= maxAttempts) {
-              initializeAds();
-            }
-          }
-        }, 100);
-      }
-    }, 300);
+  // Wait for page to fully load before initializing ads
+  function waitForPageLoad() {
+    if (document.readyState === 'complete') {
+      // Page already fully loaded, wait for script
+      waitForAdSenseScript();
+    } else {
+      // Wait for page to fully load (all resources including images, stylesheets, etc.)
+      window.addEventListener('load', function() {
+        waitForAdSenseScript();
+      }, { once: true });
+    }
   }
   
-  // Final fallback after page fully loads
-  window.addEventListener('load', function() {
+  // Wait for AdSense script to load, then initialize ads
+  function waitForAdSenseScript() {
+    // Give script time to load (it starts loading after page load)
     setTimeout(function() {
-      if (!adsInitialized) {
-        initializeAds();
+      if (tryInitializeAds()) {
+        return; // Successfully initialized
       }
-    }, 1500);
-  });
+      
+      // Script not loaded yet, poll for it
+      var attempts = 0;
+      var maxAttempts = 60; // 6 seconds max (60 * 100ms)
+      var pollInterval = setInterval(function() {
+        attempts++;
+        if (tryInitializeAds()) {
+          clearInterval(pollInterval);
+        } else if (attempts >= maxAttempts) {
+          clearInterval(pollInterval);
+          // Final attempt - initialize even if script status unclear
+          // This handles cases where script loaded but flag wasn't set
+          if (typeof adsbygoogle !== 'undefined') {
+            initializeAds();
+          }
+        }
+      }, 100);
+    }, 1000); // Wait 1 second after page load for script to start loading
+  }
+  
+  // Start the process
+  waitForPageLoad();
 })();
 </script>
 
