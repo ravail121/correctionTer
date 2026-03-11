@@ -92,35 +92,34 @@
   var adsInitialized = false;
   
   function initializeAds() {
-    // Prevent double initialization
-    if (adsInitialized) {
-      return;
-    }
-    
+    // Don't prevent re-initialization - we need to check each ad individually
     try {
       // Ensure adsbygoogle array exists
       window.adsbygoogle = window.adsbygoogle || [];
       
-      // Get all ad containers that haven't been initialized
+      // Get all ad containers
       var adContainers = document.querySelectorAll('.adsbygoogle');
-      var uninitialized = [];
+      var initializedCount = 0;
       
+      // Initialize each ad container that hasn't been initialized yet
       adContainers.forEach(function(adContainer) {
-        // Check if this ad has been initialized
-        if (!adContainer.hasAttribute('data-adsbygoogle-status')) {
-          uninitialized.push(adContainer);
-        }
-      });
-      
-      // Initialize each uninitialized ad
-      if (uninitialized.length > 0 && typeof adsbygoogle !== 'undefined') {
-        uninitialized.forEach(function(adContainer) {
+        // Check if this specific ad has been initialized
+        // AdSense sets data-adsbygoogle-status="done" when initialized
+        if (!adContainer.hasAttribute('data-adsbygoogle-status') && typeof adsbygoogle !== 'undefined') {
           try {
+            // Push empty object for each ad container - this is required for each ad
             (adsbygoogle = window.adsbygoogle || []).push({});
+            initializedCount++;
           } catch (e) {
             console.warn('AdSense push error for container:', e);
           }
-        });
+        } else if (adContainer.hasAttribute('data-adsbygoogle-status')) {
+          initializedCount++;
+        }
+      });
+      
+      // Mark as initialized only if all ads have been processed
+      if (initializedCount > 0) {
         adsInitialized = true;
       }
     } catch (e) {
@@ -157,6 +156,8 @@
     // Give script time to load (it starts loading after page load)
     setTimeout(function() {
       if (tryInitializeAds()) {
+        // Check if all ads are initialized, if not, try again
+        checkAndRetryAds();
         return; // Successfully initialized
       }
       
@@ -167,16 +168,44 @@
         attempts++;
         if (tryInitializeAds()) {
           clearInterval(pollInterval);
+          checkAndRetryAds();
         } else if (attempts >= maxAttempts) {
           clearInterval(pollInterval);
           // Final attempt - initialize even if script status unclear
           // This handles cases where script loaded but flag wasn't set
           if (typeof adsbygoogle !== 'undefined') {
             initializeAds();
+            checkAndRetryAds();
           }
         }
       }, 100);
     }, 1000); // Wait 1 second after page load for script to start loading
+  }
+  
+  // Check if all ads are initialized and retry if needed
+  function checkAndRetryAds() {
+    var adContainers = document.querySelectorAll('.adsbygoogle');
+    var uninitializedCount = 0;
+    
+    adContainers.forEach(function(adContainer) {
+      if (!adContainer.hasAttribute('data-adsbygoogle-status')) {
+        uninitializedCount++;
+      }
+    });
+    
+    // If there are uninitialized ads, try again after a delay
+    if (uninitializedCount > 0 && typeof adsbygoogle !== 'undefined') {
+      setTimeout(function() {
+        initializeAds();
+        // One more check after 2 seconds
+        setTimeout(function() {
+          var stillUninitialized = document.querySelectorAll('.adsbygoogle:not([data-adsbygoogle-status])');
+          if (stillUninitialized.length > 0 && typeof adsbygoogle !== 'undefined') {
+            initializeAds();
+          }
+        }, 2000);
+      }, 500);
+    }
   }
   
   // Start the process
