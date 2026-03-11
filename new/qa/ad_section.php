@@ -72,27 +72,19 @@
   let deferredPrompt = null;
   const installBtn = document.getElementById('pwaInstallBtn');
   let showTimeout = null;
-  let userDismissed = false; // Track if user dismissed the prompt
 
   // Listen for the beforeinstallprompt event
   window.addEventListener('beforeinstallprompt', function(e) {
-    // Don't show if user already dismissed
-    if (userDismissed) {
-      return;
-    }
-
     // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
     deferredPrompt = e;
 
-    // Show button after 10 seconds (only if not dismissed)
-    if (!userDismissed) {
-      showTimeout = setTimeout(function() {
-        if (deferredPrompt && !isPWAInstalled() && !userDismissed) {
-          installBtn.style.display = 'block';
-        }
-      }, 10000); // 10 seconds
-    }
+    // Show button after 10 seconds (only if not already visible)
+    showTimeout = setTimeout(function() {
+      if (deferredPrompt && !isPWAInstalled() && installBtn.style.display === 'none') {
+        installBtn.style.display = 'block';
+      }
+    }, 10000); // 10 seconds
   });
 
   // Handle button click
@@ -109,14 +101,14 @@
 
     // Clear the deferredPrompt so it can only be used once
     deferredPrompt = null;
-    installBtn.style.display = 'none';
 
-    // If user dismissed, mark as dismissed so button won't show again
-    if (choiceResult.outcome === 'dismissed') {
-      userDismissed = true;
+    // Only hide button if user accepted the install
+    // If user dismissed/cancelled, keep button visible
+    if (choiceResult.outcome === 'accepted') {
+      installBtn.style.display = 'none';
     }
+    // If dismissed, button stays visible so user can try again later
 
-    // Clear timeout
     if (showTimeout) {
       clearTimeout(showTimeout);
       showTimeout = null;
