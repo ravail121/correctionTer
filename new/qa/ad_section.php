@@ -19,16 +19,6 @@
       }
       
       window.adsenseScriptLoading = true;
-      var scriptLoaded = false;
-      var scriptTimeout = setTimeout(function() {
-        if (!scriptLoaded) {
-          console.warn('AdSense script load timeout - continuing without blocking');
-          // Mark as loaded to prevent further blocking
-          window.adsbygoogle = window.adsbygoogle || [];
-          scriptLoaded = true;
-          window.adsenseScriptLoading = false;
-        }
-      }, 5000); // 5 second timeout
       
       var script = document.createElement('script');
       script.async = true;
@@ -36,14 +26,10 @@
       script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985';
       script.crossOrigin = 'anonymous';
       script.onload = function() {
-        scriptLoaded = true;
-        clearTimeout(scriptTimeout);
         window.adsenseScriptLoaded = true;
         window.adsenseScriptLoading = false;
       };
       script.onerror = function() {
-        scriptLoaded = true;
-        clearTimeout(scriptTimeout);
         window.adsenseScriptLoading = false;
         console.warn('AdSense script failed to load');
       };
@@ -214,18 +200,18 @@
 </script>
 
 <!-- PWA Install Button (Chrome/Edge only) -->
-<button id="pwaInstallBtn" style="display:none; position:fixed; bottom:90px; right:20px; z-index:9998; background-color:#333333; color:#ffffff; border:none; border-radius:50px; padding:12px 24px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3); transition:all 0.3s ease; font-family:inherit;">
-  <i class="fa fa-download" style="margin-right:8px;"></i> Install App
+<button id="pwaInstallBtn" style="display:none; position:fixed; bottom:90px; right:0; z-index:9998; background-color:#f9f9f9; color:#000000; border:1px solid #000000; border-radius:3px 0 0 3px; height:74px; width:70px; font-size:11px; font-weight:500; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.3); transition:all 0.2s ease; font-family:inherit; text-align:center; padding:0; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+  <i class="fa fa-download" style="margin-bottom:4px; font-size:20px; color:#000000;"></i>
+  <span>Install App</span>
 </button>
 
 <style>
   #pwaInstallBtn:hover {
-    background-color:#444444;
-    transform:translateY(-2px);
-    box-shadow:0 6px 16px rgba(0,0,0,0.4);
+    background-color:#ffffff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
   }
   #pwaInstallBtn:active {
-    transform:translateY(0);
+    box-shadow:0 1px 3px rgba(0,0,0,0.2);
   }
 </style>
 
@@ -253,8 +239,10 @@
     e.preventDefault();
     deferredPrompt = e;
 
-    // Show button immediately when install prompt is available
-    installBtn.style.display = 'block';
+    // Show button 10 seconds after install prompt is available
+    setTimeout(function() {
+      installBtn.style.display = 'flex';
+    }, 10000);
   });
 
   // Handle button click
