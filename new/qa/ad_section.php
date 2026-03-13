@@ -38,16 +38,13 @@
       document.head.appendChild(script);
     }
     
-    // Wait for window.load event (page fully loaded including all resources)
+    // Load AdSense script as soon as possible without extra delays
     if (document.readyState === 'complete') {
-      // Page already fully loaded, load script after a short delay
-      setTimeout(loadAdSenseScript, 500);
+      // Page already fully loaded
+      loadAdSenseScript();
     } else {
-      // Wait for page to fully load
-      window.addEventListener('load', function() {
-        // Additional delay to ensure page is fully rendered
-        setTimeout(loadAdSenseScript, 500);
-      });
+      // Load once page has fully loaded
+      window.addEventListener('load', loadAdSenseScript, { once: true });
     }
   })();
   </script>
@@ -137,38 +134,18 @@
     }
   }
   
-  // Wait for AdSense script to load, then initialize ads
+  // Initialize ads when AdSense script is available, without timeouts/polling
   function waitForAdSenseScript() {
-    // Give script time to load (it starts loading after page load)
-    setTimeout(function() {
-      if (tryInitializeAds()) {
-        // Check if all ads are initialized, if not, try again
-        checkAndRetryAds();
-        return; // Successfully initialized
-      }
-      
-      // Script not loaded yet, poll for it
-      var attempts = 0;
-      var maxAttempts = 60; // 6 seconds max (60 * 100ms)
-      var pollInterval = setInterval(function() {
-        attempts++;
-        if (tryInitializeAds()) {
-          clearInterval(pollInterval);
-          checkAndRetryAds();
-        } else if (attempts >= maxAttempts) {
-          clearInterval(pollInterval);
-          // Final attempt - initialize even if script status unclear
-          // This handles cases where script loaded but flag wasn't set
-          if (typeof adsbygoogle !== 'undefined') {
-            initializeAds();
-            checkAndRetryAds();
-          }
-        }
-      }, 100);
-    }, 1000); // Wait 1 second after page load for script to start loading
+    if (tryInitializeAds()) {
+      checkAndRetryAds();
+    } else if (typeof adsbygoogle !== 'undefined') {
+      // Fallback: initialize directly if script array exists
+      initializeAds();
+      checkAndRetryAds();
+    }
   }
   
-  // Check if all ads are initialized and retry if needed
+  // Check if all ads are initialized and retry once if needed (no timers)
   function checkAndRetryAds() {
     var adContainers = document.querySelectorAll('.adsbygoogle');
     var uninitializedCount = 0;
@@ -179,94 +156,14 @@
       }
     });
     
-    // If there are uninitialized ads, try again after a delay
+    // If there are uninitialized ads, try initializing once more immediately
     if (uninitializedCount > 0 && typeof adsbygoogle !== 'undefined') {
-      setTimeout(function() {
-        initializeAds();
-        // One more check after 2 seconds
-        setTimeout(function() {
-          var stillUninitialized = document.querySelectorAll('.adsbygoogle:not([data-adsbygoogle-status])');
-          if (stillUninitialized.length > 0 && typeof adsbygoogle !== 'undefined') {
-            initializeAds();
-          }
-        }, 2000);
-      }, 500);
+      initializeAds();
     }
   }
   
   // Start the process
   waitForPageLoad();
-})();
-</script>
-
-<!-- PWA Install Button (Chrome/Edge only) -->
-<button id="pwaInstallBtn" style="display:none; position:fixed; bottom:90px; right:0; z-index:9998; background-color:#f9f9f9; color:#000000; border:1px solid #000000; border-radius:3px 0 0 3px; height:74px; width:70px; font-size:11px; font-weight:500; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.3); transition:all 0.2s ease; font-family:inherit; text-align:center; padding:0; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-  <i class="fa fa-download" style="margin-bottom:4px; font-size:20px; color:#000000;"></i>
-  <span>Install App</span>
-</button>
-
-<style>
-  #pwaInstallBtn:hover {
-    background-color:#ffffff;
-    box-shadow:0 2px 6px rgba(0,0,0,0.25);
-  }
-  #pwaInstallBtn:active {
-    box-shadow:0 1px 3px rgba(0,0,0,0.2);
-  }
-</style>
-
-<script>
-(function() {
-  // Detect Chrome or Edge browser only
-  function isChromeOrEdge() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isChrome = /chrome/.test(userAgent) && !/edg/.test(userAgent) && !/opr/.test(userAgent) && !/brave/.test(userAgent);
-    const isEdge = /edg/.test(userAgent);
-    return isChrome || isEdge;
-  }
-
-  // Only proceed if Chrome/Edge
-  if (!isChromeOrEdge()) {
-    return;
-  }
-
-  let deferredPrompt = null;
-  const installBtn = document.getElementById('pwaInstallBtn');
-
-  // Listen for the beforeinstallprompt event
-  window.addEventListener('beforeinstallprompt', function(e) {
-    // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
-    deferredPrompt = e;
-
-    // Show button 10 seconds after install prompt is available
-    setTimeout(function() {
-      installBtn.style.display = 'flex';
-    }, 10000);
-  });
-
-  // Handle button click
-  installBtn.addEventListener('click', async function() {
-    if (!deferredPrompt) {
-      return;
-    }
-
-    // Show the install prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    const choiceResult = await deferredPrompt.userChoice;
-
-    // Clear the deferredPrompt so it can only be used once
-    deferredPrompt = null;
-
-    // Only hide button if user accepted the install
-    // If user dismissed/cancelled, keep button visible
-    if (choiceResult.outcome === 'accepted') {
-      installBtn.style.display = 'none';
-    }
-    // If dismissed, button stays visible so user can try again later
-  });
 })();
 </script>
 
