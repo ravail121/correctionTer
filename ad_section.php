@@ -10,8 +10,8 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8754771874266985" crossorigin="anonymous"></script>
 <?php endif; ?>
 
-<div class="container" style="padding:0 5px; margin:2px auto; text-align:center;">
-  <div style="margin:0 auto 2px; max-width:100%;">
+<div class="container" style="padding:0 5px; margin:4px auto; text-align:center;">
+  <div style="margin:0 auto 8px; max-width:100%;">
     <ins class="adsbygoogle"
          style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
@@ -20,7 +20,7 @@
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-  <div style="margin:0 auto 2px; max-width:100%;">
+  <div style="margin:0 auto 8px; max-width:100%;">
     <ins class="adsbygoogle"
          style="display:block; margin:0 auto;"
          data-ad-client="ca-pub-8754771874266985"
