@@ -296,6 +296,14 @@ a {
         .mycontain{
             padding:70px 5px;
         }
+        /* Table close to ads: no extra gap below table */
+        #tablesList {
+            margin-bottom: 0;
+        }
+        #tablesList .table-responsive,
+        #tablesList table {
+            margin-bottom: 0;
+        }
                 /* Basic styles for the input field and suggestion box */
         .suggestion-box {
             border: 0px solid #ccc;
