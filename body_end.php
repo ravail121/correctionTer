@@ -21,19 +21,24 @@
     var button = document.getElementById('pwaInstallButton');
     if (!button) return;
 
+    function showButton() {
+        button.style.display = 'flex';
+    }
+
     // Listen for the beforeinstallprompt event
     window.addEventListener('beforeinstallprompt', function(e) {
         // Prevent the default mini-infobar
         e.preventDefault();
         deferredPrompt = e;
-
-        // Show the button 10 seconds after page load / event
-        setTimeout(function() {
-            if (deferredPrompt) {
-                button.style.display = 'flex';
-            }
-        }, 10000);
+        setTimeout(showButton, 10000);
     });
+
+    // Show button after 12s even if beforeinstallprompt never fired (e.g. no service worker yet)
+    setTimeout(function() {
+        if (!deferredPrompt && button.style.display !== 'flex') {
+            showButton();
+        }
+    }, 12000);
 
     // When user clicks the button, show the install prompt
     button.addEventListener('click', function() {
