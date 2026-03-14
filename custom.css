@@ -82,7 +82,15 @@
     }  
     .mycustomcol{
         margin-top:-40px;
-    } 
+    }
+    /* Table close to ads: pull ads up toward table (global – main + mobile) */
+    #tablesList {
+        margin-bottom: -70px;
+    }
+    #tablesList .table-responsive,
+    #tablesList table {
+        margin-bottom: 0;
+    }
     .showmobile { 
                 display: none;
             } 
