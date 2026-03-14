@@ -45,13 +45,16 @@
     }
     .cname {
         text-align: left !important;
-    position: relative; /* Establish a positioning context for absolute positioning */
-    padding-right: 20px; /* Add padding to the right for the icon */
-}
+        position: relative; /* Establish a positioning context for absolute positioning */
+        padding-left: 10px !important; /* Match header .cname1 for alignment */
+        padding-right: 24px !important; /* Space for heart icon, consistent gap before icon */
+        min-height: 2.5em; /* Consistent row height so heart stays vertically centered */
+        vertical-align: middle !important;
+    }
 
 .heart-icon {
     position: absolute; /* Position the heart icon absolutely */
-    right: 3px; /* Align it to the right of the cell */
+    right: 6px; /* Fixed distance from right edge for consistent spacing */
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust to perfect vertical centering */
     color: #E4E4E4; /* Default heart color */
@@ -75,8 +78,11 @@
     padding: 5px 10px !important;
     border-bottom: 1px solid #111;
      }
-    /* Small gap between table and ads */
-    #tablesList,
+    /* Consistent gap between filter row and table (full page or AJAX) */
+    #tablesList {
+        margin-top: 1rem !important;
+        margin-bottom: 0 !important;
+    }
     #tablesList .dataTables_wrapper {
         margin-bottom: 0 !important;
     }
@@ -226,7 +232,7 @@ a {
     display: none;
 }
 
-/* Default button styles */
+/* Default button styles - no vertical margin; flex gap controls spacing for consistency */
 .custom-btn {
     background-color: #D9D9D9; /* Default background */
     color: black; /* Default text color */
@@ -236,7 +242,7 @@ a {
     border-radius: 5px; /* Rounded corners */
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s; /* Smooth transition */
-    margin: 5px 0px; /* Add some margin to space the buttons */
+    margin: 0; /* No margin - gap on .filterList #scrollableDiv controls spacing (same when wrapped) */
 
 }
 
@@ -264,6 +270,11 @@ a {
     flex-wrap: wrap; /* Allow wrapping if there is not enough space */
     gap: 10px; /* Adds consistent spacing between buttons */
     justify-content: center; /* Center the buttons */
+}
+
+/* Consistent space below filter row (avoids jump when switching filters) */
+.filterList .row {
+    margin-bottom: 0.5rem !important;
 }
 
 .form-check-inline {
@@ -341,7 +352,7 @@ a {
                 display: flex !important;
                 justify-content: center !important;
                 flex-wrap: wrap !important; /* Allow wrapping on larger screens */
-                gap: 10px !important; /* Same as root: consistent spacing between filter buttons */
+                gap: 10px !important; /* Same spacing between buttons and when wrapped */
             }
         }
         .text1{
@@ -401,7 +412,7 @@ a {
             .filterList .custom-btn {
                 padding: 4px 8px !important; /* Smaller padding */
                 font-size: 12px !important; /* Smaller font size */
-                margin: 3px 0px !important; /* Reduced vertical margin */
+                margin: 0 !important; /* Use gap only for consistent spacing */
             }
 
             /* Optional scrollbar customization */
