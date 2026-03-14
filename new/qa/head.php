@@ -122,5 +122,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-<link href="custom.css?v=<?php echo @filemtime(__DIR__ . '/custom.css'); ?>" rel="stylesheet">
+<?php $qa_asset_base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>
+<link href="<?php echo htmlspecialchars($qa_asset_base); ?>/custom.css?v=<?php echo @filemtime(__DIR__ . '/custom.css'); ?>" rel="stylesheet">
 
