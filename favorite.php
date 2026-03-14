@@ -285,8 +285,7 @@ function closeTradingView() {
 
 
     </div>
-    
-    <br/>
+
 </div>
 <!-- Include JavaScript for handling favorite functionality -->
 <script>

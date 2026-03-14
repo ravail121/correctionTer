@@ -50,7 +50,7 @@
   </script>
 <?php endif; ?>
 
-<div class="container" style="padding:0 5px; margin:4px auto; text-align:center;">
+<div class="container ad-section-container" style="padding:0 5px; margin:0 auto; text-align:center;">
   <div style="margin:0 auto 8px; max-width:100%;">
     <ins class="adsbygoogle"
          style="display:block; margin:0 auto;"

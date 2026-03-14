@@ -74,7 +74,12 @@
     table.dataTable thead th{
     padding: 5px 10px !important;
     border-bottom: 1px solid #111;
-     }    
+     }
+    /* Minimal gap between table and ads */
+    #tablesList,
+    #tablesList .dataTables_wrapper {
+        margin-bottom: 0 !important;
+    }
     
       
     .table-striped tbody tr:nth-of-type(odd) {
@@ -294,7 +299,7 @@ a {
             margin-right: 10px;
         }
         .mycontain{
-            padding:70px 5px;
+            padding: 70px 5px 0 5px;   /* no bottom padding: table sits close to ads */
         }
                 /* Basic styles for the input field and suggestion box */
         .suggestion-box {

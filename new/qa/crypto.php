@@ -166,7 +166,6 @@ if(isset($_POST['setnotification'])){
     </script>
 
     </div>
-<br/>
 </div>
 <!-- Include JavaScript for handling favorite functionality -->
 <script>
