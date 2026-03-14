@@ -294,11 +294,11 @@ a {
             margin-right: 10px;
         }
         .mycontain{
-            padding:0 5px;
+            padding:70px 5px;
         }
-        /* Table close to ads: no extra gap below table */
+        /* Table close to ads: pull ads up toward table */
         #tablesList {
-            margin-bottom: 0;
+            margin-bottom: -70px;
         }
         #tablesList .table-responsive,
         #tablesList table {
