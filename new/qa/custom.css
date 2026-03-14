@@ -564,10 +564,10 @@ thead {
 }
 
 /* PWA Install Floating Button (Chrome only, new/qa)
-   Positioned with no gap above reCAPTCHA badge */
+   Positioned just above reCAPTCHA badge with minimal gap */
 .pwa-install-btn {
     position: fixed;
-    bottom: 60px !important;          /* flush above reCAPTCHA badge (badge ~60px tall) */
+    bottom: 72px !important;          /* just above reCAPTCHA badge, no overlap */
     right: 0 !important;
     z-index: 1100;
     background-color: #f9f9f9;
