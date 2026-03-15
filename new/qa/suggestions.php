@@ -1,8 +1,10 @@
    <script>
+    // Base URL for "All" and search – works on any host/path (localhost vs production)
+    window.QA_ALL_BASE = <?php echo json_encode(rtrim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/") . "/all"); ?>;
     // List of companies (symbol + name) for Smart Search – partial match by symbol or name
     const companiesSearch = [
 <?php
-include "db.php";
+include __DIR__ . "/db.php";
 $companies_query = mysqli_query($con, "SELECT symbl, name FROM companies WHERE name IS NOT NULL AND name != '' AND symbl IS NOT NULL AND symbl != '' ORDER BY name");
 $items = [];
 while ($row = mysqli_fetch_array($companies_query)) {
@@ -32,7 +34,7 @@ echo "  " . implode(",\n  ", $items);
             return;
         }
 
-        var baseUrl = 'all';
+        var baseUrl = (typeof window !== 'undefined' && window.QA_ALL_BASE) ? window.QA_ALL_BASE : 'all';
         var q = encodeURIComponent(document.getElementById('company-input').value.trim());
 
         // "All" option – show table with all matching results

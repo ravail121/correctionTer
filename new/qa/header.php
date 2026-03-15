@@ -217,7 +217,7 @@
    <h3 class="customheading mt-6">S&P 500 Stocks and Their Current<br/> Percentage Gap to All-Time High</h3>
    <div class="row">
        <div class="offset-md-4 col-md-4 offset-sm-2 col-sm-8 offset-2 col-8">
-        <form method="GET" action="all" id="smart-search-form" role="search">
+        <form method="GET" action="<?php echo htmlspecialchars(rtrim(str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"])), "/") . "/all"); ?>" id="smart-search-form" role="search">
          <div class="input-group">
               <input type="text" class="form-control" placeholder="Search by symbol or name" id="company-input" name="q" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>" autocomplete="off" style="border-radius: 6px;height:28px;" onkeyup="if(typeof showSuggestions==='function')showSuggestions()" onfocus="if(typeof showSuggestions==='function')showSuggestions()">
               <button type="submit" class="input-group-append" style="border:0px;padding:0px;margin: 0px;height: max-content;margin-left: 5px;background: none;">
