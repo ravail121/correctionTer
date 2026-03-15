@@ -39,24 +39,14 @@ echo "  " . implode(",\n  ", $items);
         }
 
         var baseUrl = (typeof window !== 'undefined' && window.QA_ALL_BASE) ? window.QA_ALL_BASE : 'all';
-        var q = encodeURIComponent(document.getElementById('company-input').value.trim());
 
-        // "All" option – show table with all matching results
-        var allDiv = document.createElement('div');
-        allDiv.className = 'suggestion-item suggestion-all';
-        allDiv.textContent = 'All (' + filtered.length + ' result' + (filtered.length !== 1 ? 's' : '') + ')';
-        allDiv.onclick = function () {
-            window.location = baseUrl + (q ? '?q=' + q : '');
-        };
-        suggestionBox.appendChild(allDiv);
-
-        // Individual matches – selecting navigates to result and scrolls to row
+        // Each match: click navigates to that specific symbol only (one result)
         filtered.forEach(function (c) {
             var div = document.createElement('div');
             div.className = 'suggestion-item';
             div.textContent = (c.symbl || '') + ' – ' + (c.name || '');
             div.onclick = function () {
-                window.location = baseUrl + (q ? '?q=' + q : '') + '#row-' + encodeURIComponent(c.symbl || '');
+                window.location = baseUrl + '?q=' + encodeURIComponent(c.symbl || '') + '#row-' + encodeURIComponent(c.symbl || '');
             };
             suggestionBox.appendChild(div);
         });
