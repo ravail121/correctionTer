@@ -219,7 +219,7 @@
        <div class="offset-md-4 col-md-4 offset-sm-2 col-sm-8 offset-2 col-8">
         <form method="GET" action="all" id="smart-search-form" role="search">
          <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search by symbol or name" id="company-input" name="q" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>" autocomplete="off" style="border-radius: 6px;height:28px;" onkeyup="showSuggestions()" onfocus="showSuggestions()">
+              <input type="text" class="form-control" placeholder="Search by symbol or name" id="company-input" name="q" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>" autocomplete="off" style="border-radius: 6px;height:28px;" onkeyup="if(typeof showSuggestions==='function')showSuggestions()" onfocus="if(typeof showSuggestions==='function')showSuggestions()">
               <button type="submit" class="input-group-append" style="border:0px;padding:0px;margin: 0px;height: max-content;margin-left: 5px;background: none;">
                 <span class="input-group-text" style="border-bottom-right-radius: 14px;border-top-right-radius: 14px;"><img src="images/search.png" style="width: 14px;" alt="Search"></span>
               </button>
@@ -228,6 +228,7 @@
             <div id="suggestions" class="suggestion-box"></div>
        </div>
    </div>
+<?php if (!defined('QA_SUGGESTIONS_LOADED')) { define('QA_SUGGESTIONS_LOADED', 1); include __DIR__ . '/suggestions.php'; } ?>
    <div class="container mt-4">
     <div class="row mb-1 filterList">
         <div class="col-12 col1-12 d-flex flex-wrap justify-content-center" id="scrollableDiv">
