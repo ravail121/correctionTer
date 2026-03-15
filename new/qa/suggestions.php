@@ -9,7 +9,6 @@ while ($row = mysqli_fetch_array($companies_query)) {
     $items[] = '{ symbl: ' . json_encode($row['symbl']) . ', name: ' . json_encode($row['name']) . ' }';
 }
 echo "  " . implode(",\n  ", $items);
-$con->close();
 ?>
 ];
 
