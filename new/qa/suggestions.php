@@ -8,7 +8,11 @@ include __DIR__ . "/db.php";
 $companies_query = mysqli_query($con, "SELECT symbl, name FROM companies WHERE name IS NOT NULL AND name != '' AND symbl IS NOT NULL AND symbl != '' ORDER BY name");
 $items = [];
 while ($row = mysqli_fetch_array($companies_query)) {
-    $items[] = '{ symbl: ' . json_encode($row['symbl']) . ', name: ' . json_encode($row['name']) . ' }';
+    $symbl = json_encode($row['symbl']);
+    $name = json_encode($row['name']);
+    if ($symbl === false) $symbl = '""';
+    if ($name === false) $name = '""';
+    $items[] = '{ symbl: ' . $symbl . ', name: ' . $name . ' }';
 }
 echo "  " . implode(",\n  ", $items);
 ?>
