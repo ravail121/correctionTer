@@ -339,6 +339,17 @@ a {
         .suggestion-box div:hover {
             background-color: #f0f0f0;
         }
+        .suggestion-box .suggestion-all {
+            font-weight: 700;
+            background-color: #f5f5f5;
+        }
+        .suggestion-box .suggestion-all:hover {
+            background-color: #e8e8e8;
+        }
+        .suggestion-box .suggestion-empty {
+            cursor: default;
+            color: #888;
+        }
          .modal-dialog {
             display: flex;
             align-items: center;
