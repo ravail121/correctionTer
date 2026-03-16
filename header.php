@@ -175,7 +175,7 @@
                 <a class="nav-link bold" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bold" href="/about">About Us</a>
+                <a class="nav-link bold" href="/about-us">About Us</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link bold" href="/contact-us">Contact Us</a>

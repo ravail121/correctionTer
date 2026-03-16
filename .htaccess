@@ -13,17 +13,12 @@ RewriteBase /
 RewriteCond %{THE_REQUEST} \s/+((index|efts|crypto|favorite)\.php)\?filter=([^\s&]+) [NC]
 RewriteRule ^ %3? [R=301,L]
 
-# Clean URLs for static pages (About, Contact)
-# Redirect direct .php requests to extensionless URLs
+# Redirect old About/Contact URLs with .php to clean versions
 RewriteCond %{THE_REQUEST} \s/+about\.php[\s?] [NC]
-RewriteRule ^about\.php$ /about [R=301,L]
+RewriteRule ^about\.php$ /about-us [R=301,L]
 
 RewriteCond %{THE_REQUEST} \s/+contact-us\.php[\s?] [NC]
 RewriteRule ^contact-us\.php$ /contact-us [R=301,L]
-
-# Serve extensionless URLs via underlying PHP files
-RewriteRule ^about/?$ about.php [L,QSA]
-RewriteRule ^contact-us/?$ contact-us.php [L,QSA]
 
 # Handle clean URLs - rewrite to actual PHP files
 # Big 7 (default)
@@ -43,6 +38,10 @@ RewriteRule ^favorites/?$ favorite.php?filter=favorites [L,QSA]
 
 # All
 RewriteRule ^all/?$ index.php?filter=all [L,QSA]
+
+# About & Contact pretty URLs
+RewriteRule ^about-us/?$ about.php [L,QSA]
+RewriteRule ^contact-us/?$ contact-us.php [L,QSA]
 
 # Default: if accessing root without filter, show big-7
 RewriteCond %{REQUEST_URI} ^/?$
