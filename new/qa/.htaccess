@@ -10,6 +10,12 @@ RewriteRule ^ /new/qa/%2? [R=301,L]
 # Big 7 (default)
 RewriteRule ^big-7/?$ index.php?filter=big-7 [L,QSA]
 
+# About & Contact pretty URLs in QA
+RewriteRule ^about-us/?$ about.php [L,QSA]
+RewriteRule ^about/?$ about.php [L,QSA]
+RewriteRule ^contact-us/?$ contact-us.php [L,QSA]
+RewriteRule ^contact/?$ contact-us.php [L,QSA]
+
 # Crypto
 RewriteRule ^crypto/?$ crypto.php?filter=crypto [L,QSA]
 
