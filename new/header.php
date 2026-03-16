@@ -175,10 +175,10 @@
                 <a class="nav-link bold" href="https://correctionterritory.com/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bold" href="https://correctionterritory.com/about.php">About Us</a>
+                <a class="nav-link bold" href="https://correctionterritory.com/about">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bold" href="https://correctionterritory.com/contact-us.php">Contact Us</a>
+                <a class="nav-link bold" href="https://correctionterritory.com/contact-us">Contact Us</a>
             </li>
         </ul>
     </div>

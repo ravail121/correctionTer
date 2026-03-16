@@ -11,7 +11,7 @@
 		<h4 class="text">QUICK LINKS</h4>
 		<ul class="footer-ul">
 			<li><a class="text" href="https://correctionterritory.com/">Home</a></li>
-			<li><a class="text" href="https://correctionterritory.com/about.php">About Us</a></li>
+			<li><a class="text" href="https://correctionterritory.com/about">About Us</a></li>
 			<li><a class="text" href="terms-and-conditions.php">Terms & Conditions</a></li>
 		</ul>
 	</div>

@@ -26,8 +26,8 @@ echo "  " . implode(",\n  ", $items);
         if (input.length === 0) return;
 
         const filtered = companiesSearch.filter(function (c) {
-            return (c.name && c.name.toUpperCase().indexOf(input) !== -1) ||
-                   (c.symbl && c.symbl.toUpperCase().indexOf(input) !== -1);
+            return (c.name && c.name.toUpperCase().indexOf(input) === 0) ||
+                   (c.symbl && c.symbl.toUpperCase().indexOf(input) === 0);
         });
 
         if (filtered.length === 0) {

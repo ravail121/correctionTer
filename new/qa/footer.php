@@ -12,8 +12,8 @@
 		<h4 class="text">QUICK LINKS</h4>
 		<ul class="footer-ul">
 			<li><a class="text" href="index.php">Home</a></li>
-			<li><a class="text" href="about.php">About Us</a></li>
-			<li><a class="text" href="contact-us.php">Contact Us</a></li>
+			<li><a class="text" href="about">About Us</a></li>
+			<li><a class="text" href="contact-us">Contact Us</a></li>
 			<li><a class="text" href="terms-and-conditions.php">Terms & Conditions</a></li>
 		</ul>
 	</div>

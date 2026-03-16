@@ -163,10 +163,10 @@
                 <a class="nav-link bold" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bold" href="about.php">About Us</a>
+                <a class="nav-link bold" href="about">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link bold" href="contact-us.php">Contact Us</a>
+                <a class="nav-link bold" href="contact-us">Contact Us</a>
             </li>
         </ul>
     </div>

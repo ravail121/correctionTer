@@ -127,11 +127,11 @@ function closeTradingView() {
 
     if (isset($_POST["filterCompany"]) && $search_term !== '') {
         $companyName = $con->real_escape_string($_POST["serachCompany"]);
-        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '%$companyName%' OR symbl LIKE '%$companyName%') ORDER BY name ASC");
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$companyName%' OR symbl LIKE '$companyName%') ORDER BY name ASC");
     }
     elseif ($search_term !== '' && (isset($_GET['filter']) && $_GET['filter'] === 'all')) {
-        // Smart Search: partial match on symbol or name when viewing All
-        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '%$search_term%' OR symbl LIKE '%$search_term%') ORDER BY name ASC");
+        // Smart Search: prefix match on symbol or name when viewing All
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC");
     }
     else if (isset($_POST["filterCompany"])) {
         $companyName = $con->real_escape_string($_POST["serachCompany"]);
@@ -143,7 +143,7 @@ function closeTradingView() {
             $filterOption = $_POST['filterOption'];
             if ($filterOption == "all") {
                 $categories_query = $search_term !== ''
-                    ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '%$search_term%' OR symbl LIKE '%$search_term%') ORDER BY name ASC")
+                    ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC")
                     : mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
             } else {
                 // For other POST filterOptions, use default Big 7
@@ -155,7 +155,7 @@ function closeTradingView() {
             $filter=$_GET['filter'];
             if ($filter=="all") {
               $categories_query = $search_term !== ''
-                  ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '%$search_term%' OR symbl LIKE '%$search_term%') ORDER BY name ASC")
+                  ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC")
                   : mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
             }
             elseif ($filter=="pouplar") {
