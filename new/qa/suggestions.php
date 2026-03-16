@@ -46,7 +46,9 @@ echo "  " . implode(",\n  ", $items);
             div.className = 'suggestion-item';
             div.textContent = (c.symbl || '') + ' – ' + (c.name || '');
             div.onclick = function () {
-                window.location = baseUrl + '?q=' + encodeURIComponent(c.symbl || '') + '#row-' + encodeURIComponent(c.symbl || '');
+                // Pass both q (for display) and an exact symbol flag so backend can return only that row
+                var sym = encodeURIComponent(c.symbl || '');
+                window.location = baseUrl + '?q=' + sym + '&symbol=' + sym + '#row-' + sym;
             };
             suggestionBox.appendChild(div);
         });

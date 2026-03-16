@@ -125,7 +125,13 @@ function closeTradingView() {
     $search_term = trim(isset($_GET['q']) ? $_GET['q'] : (isset($_POST['serachCompany']) ? $_POST['serachCompany'] : ''));
     $search_term = $search_term === '' ? '' : $con->real_escape_string($search_term);
 
-    if (isset($_POST["filterCompany"]) && $search_term !== '') {
+    // If a specific symbol is provided (from suggestions click), show ONLY that company
+    $exact_symbol = isset($_GET['symbol']) ? trim($_GET['symbol']) : '';
+    if ($exact_symbol !== '') {
+        $exact_symbol = $con->real_escape_string($exact_symbol);
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE symbl = '$exact_symbol' ORDER BY name ASC");
+    }
+    elseif (isset($_POST["filterCompany"]) && $search_term !== '') {
         $companyName = $con->real_escape_string($_POST["serachCompany"]);
         $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$companyName%' OR symbl LIKE '$companyName%') ORDER BY name ASC");
     }
