@@ -2,6 +2,14 @@
 RewriteEngine On
 RewriteBase /new/qa/
 
+# Smart search now lives at root (/all). If QA receives search params, redirect there.
+RewriteCond %{QUERY_STRING} (^|&)q= [NC,OR]
+RewriteCond %{QUERY_STRING} (^|&)symbol= [NC]
+RewriteRule ^(index\.php|all/?|)$ /all?%{QUERY_STRING} [R=301,L]
+
+# Also redirect clean QA "/all" page to root "/all"
+RewriteRule ^all/?$ /all [R=301,L]
+
 # Redirect old URLs to clean URLs (301 permanent redirect for SEO)
 RewriteCond %{THE_REQUEST} \s/+new/qa/(index|efts|crypto|favorite)\.php\?filter=([^\s&]+) [NC]
 RewriteRule ^ /new/qa/%2? [R=301,L]

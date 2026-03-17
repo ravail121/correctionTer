@@ -122,8 +122,25 @@ function closeTradingView() {
         <?php
         
 
-    if (isset($_POST["filterCompany"])) {
-        $companyName=$_POST["serachCompany"];
+    $search_term = trim(isset($_GET['q']) ? $_GET['q'] : (isset($_POST['serachCompany']) ? $_POST['serachCompany'] : ''));
+    $search_term = $search_term === '' ? '' : $con->real_escape_string($search_term);
+
+    // If a specific symbol is provided (from suggestions click), show ONLY that company
+    $exact_symbol = isset($_GET['symbol']) ? trim($_GET['symbol']) : '';
+    if ($exact_symbol !== '') {
+        $exact_symbol = $con->real_escape_string($exact_symbol);
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE symbl = '$exact_symbol' ORDER BY name ASC");
+    }
+    elseif (isset($_POST["filterCompany"]) && $search_term !== '') {
+        $companyName = $con->real_escape_string($_POST["serachCompany"]);
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$companyName%' OR symbl LIKE '$companyName%') ORDER BY name ASC");
+    }
+    elseif ($search_term !== '' && (isset($_GET['filter']) && $_GET['filter'] === 'all')) {
+        // Smart Search: prefix match on symbol or name when viewing All
+        $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC");
+    }
+    else if (isset($_POST["filterCompany"])) {
+        $companyName = $con->real_escape_string($_POST["serachCompany"]);
         $categories_query = mysqli_query($con, "SELECT * FROM companies where name='$companyName'");
     }
     else{
@@ -131,7 +148,9 @@ function closeTradingView() {
         if (isset($_POST['filterOption'])) {
             $filterOption = $_POST['filterOption'];
             if ($filterOption == "all") {
-                $categories_query = mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
+                $categories_query = $search_term !== ''
+                    ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC")
+                    : mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
             } else {
                 // For other POST filterOptions, use default Big 7
                 $categories_query = mysqli_query($con, "SELECT * FROM companies where market_cap>0 AND (symbl='GOOGL' OR symbl='AMZN' OR symbl='AAPL' OR symbl='META' OR symbl='MSFT' OR symbl='NVDA' OR symbl='TSLA')");
@@ -141,7 +160,9 @@ function closeTradingView() {
         elseif (isset($_GET['filter'])) {
             $filter=$_GET['filter'];
             if ($filter=="all") {
-              $categories_query = mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
+              $categories_query = $search_term !== ''
+                  ? mysqli_query($con, "SELECT * FROM companies WHERE (name LIKE '$search_term%' OR symbl LIKE '$search_term%') ORDER BY name ASC")
+                  : mysqli_query($con, "SELECT * FROM companies ORDER BY name ASC");
             }
             elseif ($filter=="pouplar") {
                 $categories_query = mysqli_query($con, "SELECT * FROM companies WHERE symbl IN ('NVDA', 'AAPL', 'GOOGL', 'MSFT', 'AMZN', 'AVGO', 'META', 'TSLA', 'BRK.B', 'LLY', 'WMT', 'JPM', 'V', 'ORCL', 'JNJ', 'XOM', 'MA', 'NFLX', 'ABBV', 'COST') ORDER BY CASE symbl WHEN 'NVDA' THEN 1 WHEN 'AAPL' THEN 2 WHEN 'GOOGL' THEN 3 WHEN 'MSFT' THEN 4 WHEN 'AMZN' THEN 5 WHEN 'AVGO' THEN 6 WHEN 'META' THEN 7 WHEN 'TSLA' THEN 8 WHEN 'BRK.B' THEN 9 WHEN 'LLY' THEN 10 WHEN 'WMT' THEN 11 WHEN 'JPM' THEN 12 WHEN 'V' THEN 13 WHEN 'ORCL' THEN 14 WHEN 'JNJ' THEN 15 WHEN 'XOM' THEN 16 WHEN 'MA' THEN 17 WHEN 'NFLX' THEN 18 WHEN 'ABBV' THEN 19 WHEN 'COST' THEN 20 END");
