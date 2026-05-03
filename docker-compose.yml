@@ -12,6 +12,18 @@ services:
       - db_data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    depends_on:
+      - db
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: corrgltt_companies
+      PMA_PASSWORD: localpass
+      UPLOAD_LIMIT: 128M
+
   web:
     build:
       context: .
